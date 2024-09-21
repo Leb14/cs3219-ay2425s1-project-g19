@@ -41,7 +41,8 @@ router.post('/', async (req, res) => {
     const question = new Question({
         title: req.body.title,
         description: req.body.description,
-        tags: req.body.tags,
+        category: req.body.category,
+        complexity: req.body.complexity,
         images: req.body.images
     });
 
@@ -61,8 +62,11 @@ router.patch('/:id', getQuestionById, async (req, res) => {
     if (req.body.description != null) {
         res.question.description = req.body.description;
     }
-    if (req.body.tags != null) {
-        res.question.tags = req.body.tags;
+    if (req.body.category != null) {
+        res.question.category = req.body.category;
+    }
+    if (req.body.complexity != null) {
+        res.question.complexity = req.body.complexity;
     }
     if (req.body.images != null) {
         res.question.images = req.body.images;
