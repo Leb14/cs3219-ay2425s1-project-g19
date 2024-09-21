@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get a question by id
-router.get('/:questionId', getQuestionById, async (req, res) => {
+router.get('/:id', getQuestionById, async (req, res) => {
     res.json(res.question);
 });
 
@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update a question
-router.patch('/:questionId', getQuestionById, async (req, res) => {
+router.patch('/:id', getQuestionById, async (req, res) => {
     if (req.body.title != null) {
         res.question.title = req.body.title;
     }
@@ -77,10 +77,10 @@ router.patch('/:questionId', getQuestionById, async (req, res) => {
 });
 
 // Delete a question
-router.delete('/:questionId', getQuestionById, async (req, res) => {
+router.delete('/:id', getQuestionById, async (req, res) => {
     try {
-        await res.question.remove();
-        res.json({ message: `Question ${req.params.questionId} deleted` });
+        await res.question.deleteOne();
+        res.json({ message: `Question ${req.params.id} deleted` });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
