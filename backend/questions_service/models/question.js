@@ -14,7 +14,8 @@ const questionSchema = mongoose.Schema({
         required: true
     },
     complexity: {
-        type: Number,
+        type: String,
+        enum: ['Easy', 'Medium', 'Hard'],
         required: true
     },
     dateCreated: {
