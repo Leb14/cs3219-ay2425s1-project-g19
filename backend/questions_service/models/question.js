@@ -9,8 +9,13 @@ const questionSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    tags: {
+    category: {
         type: [String],
+        required: true
+    },
+    complexity: {
+        type: String,
+        enum: ['Easy', 'Medium', 'Hard'],
         required: true
     },
     dateCreated: {
