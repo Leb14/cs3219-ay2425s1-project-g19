@@ -2,39 +2,27 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { getQuestions, deleteQuestion } from "../api/QuestionsApi"; 
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetch questions when the component mounts
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get("http://localhost:8000/questions")
-      .then((res) => {
-        console.log(res.data);
-        setQuestions(res.data);
+    const fetchQuestions = async () => {
+      setLoading(true);
+      try {
+        const data = await getQuestions();
+        setQuestions(data);
         setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
+      } catch (error) {
         setLoading(false);
-      });
-  });
+      }
+    };
 
-  const handleDelete = (id) => {
-    fetch(`/edit/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Delete successful", data);
-      })
-      .catch((error) => {
-        console.error("Error deleting:", error);
-      });
-  }; // Add a closing curly brace here
+    fetchQuestions();
+  }, []);
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { addQuestion } from "../api/QuestionsApi"; // Import the API function
 import "../css/addQuestion.css";
 
 const AddQuestion = () => {
@@ -25,23 +25,19 @@ const AddQuestion = () => {
     };
 
     setLoading(true);
-    axios
-      .post("http://localhost:8000/questions", data)
-      .then(() => {
-        setLoading(false);
-        navigate("/question");
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
+    try {
+      // Call the API function instead of directly calling axios
+      await addQuestion(data);
+      setLoading(false);
+      navigate("/question");
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
   };
 
   const handleChange = (event) => {
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
-
+    const { name, value } = event.target;
     if (name === "title") {
       setTitle(value);
     } else if (name === "image") {
@@ -58,16 +54,24 @@ const AddQuestion = () => {
     if (value && !category.includes(value)) {
       setSelectedCategories((prevCategories) => [...prevCategories, value]);
     }
-    event.target.value = ''; // Reset dropdown selection
+    event.target.value = ""; // Reset dropdown selection
   };
 
-  const removeCategory = (category) => {
-    setSelectedCategories(category.filter((item) => item !== category));
+  const removeCategory = (categoryToRemove) => {
+    setSelectedCategories(category.filter((item) => item !== categoryToRemove));
   };
 
-  const categories = ["array", "dynamicProgramming", "graphTheory", "greedy", "hashTable", "heap", "linkedlist", "matrix", "searching"];
-  const isClickeds = categories.map(() => false);
-  const [clickedStates, setClickedStates] = useState(isClickeds);
+  const categories = [
+    "array",
+    "dynamicProgramming",
+    "graphTheory",
+    "greedy",
+    "hashTable",
+    "heap",
+    "linkedlist",
+    "matrix",
+    "searching",
+  ];
 
   return (
     <div>
@@ -123,7 +127,7 @@ const AddQuestion = () => {
 
           <div className="row form-group mb-4">
             <div className="col">
-              <label className="white-label" htmlFor="category">
+            <label className="white-label" htmlFor="category">
                 Category
               </label>
 
@@ -131,26 +135,32 @@ const AddQuestion = () => {
                 <div className="multi-select">
                   <select
                     id="categories"
-                    defaultValue= ""
+                    defaultValue=""
                     onChange={handleCategoryChange}
                     className="form-select"
                   >
-                    <option value="" disabled>Select categories</option>
-                    <option value="Array">Array</option>
-                    <option value="Dynamic Programming">Dynamic Programming</option>
-                    <option value="Greedy Algorithm">Greedy Algorithm</option>
-                    <option value="Graph">Graph</option>
-                    <option value="Tree">Tree</option>
-                    <option value="Searching">Searching</option>
-                    <option value="Shortest Path">Shortest Path</option>
-                    {/* Add more categories as needed */}
+                    <option value="" disabled>
+                      Select categories
+                    </option>
+                    {/* Loop through categories from config file */}
+                    {categories.map((cat) => (
+                      <option key={cat.value} value={cat.value}>
+                        {cat.label}
+                      </option>
+                    ))}
                   </select>
 
                   <div className="selected-categories">
-                    {category.map((category) => (
-                      <span key={category} className="tag bg-grey">
-                        {category}
-                        <button type="button" onClick={() => removeCategory(category)} className="remove-tag">×</button>
+                    {category.map((cat) => (
+                      <span key={cat} className="tag bg-grey">
+                        {cat}
+                        <button
+                          type="button"
+                          onClick={() => removeCategory(cat)}
+                          className="remove-tag"
+                        >
+                          ×
+                        </button>
                       </span>
                     ))}
                   </div>
@@ -205,8 +215,9 @@ const AddQuestion = () => {
             type="submit"
             className="btn btn-primary"
             onClick={handleSubmit}
+            disabled={loading} // Disable the button while loading
           >
-            Add Question
+            {loading ? "Adding..." : "Add Question"}
           </button>
         </div>
       </form>
