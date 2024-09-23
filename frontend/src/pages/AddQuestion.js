@@ -12,6 +12,9 @@ const AddQuestion = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
+    document.getElementById("addQuestionForm").reportValidity();
+
     const data = {
       title,
       image,
@@ -34,7 +37,6 @@ const AddQuestion = () => {
   };
 
   const handleChange = (event) => {
-    event.preventDefault();
     const target = event.target;
     const name = target.name;
     const value = target.value;
@@ -74,7 +76,7 @@ const AddQuestion = () => {
 
       <hr style={{ margin: "10px 15px", color: "white" }} />
 
-      <form className="h2-styled">
+      <form id="addQuestionForm" className="h2-styled">
         <div>
           <div className="row form-group mb-4">
             <div className="col">
