@@ -28,10 +28,10 @@ const AddQuestion = () => {
 
   return (
     <div>
-      <div className="d-flex justify-content-between flex-wrap flex-md-nowwrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Question</h1>
+      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
+        <h1 className="h2 h2-styled">Create Question</h1>
 
-        <div className="btn-toolbar mb-2 mb-md 0">
+        <div className="btn-toolbar mb-2 mb-md-0">
           <div className="btn-group me-2">
             <button to="/add" className="btn btn-sm btn-outline-secondary">
               ?
@@ -39,29 +39,13 @@ const AddQuestion = () => {
           </div>
         </div>
       </div>
+      
+      <hr style={{ margin: "10px 15px", color: "white"}} />
 
-      <div className="col py-3">
-        <div className="row">
-          <div className="col">
-            <nav aroia-label="breadcrumb">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                  <a href="/">Dashboard</a>
-                </li>
-                <li className="breadcrumb-item active">New Question</li>
-              </ol>
-            </nav>
-          </div>
-          <div className="col text-end fw-lighter">
-            <b>UserId</b>
-          </div>
-        </div>
-      </div>
-
-      <form action="/add" method="post">
+      <form action="/add" method="post" className="h2-styled">
         <div className="row form-group mb-4">
           <div className="col">
-            <label htmlFor="questionName">Question Name</label>
+            <label className="white-label" htmlFor="questionName">Question Name</label>
             <input
               type="text"
               className="form-control"
@@ -75,7 +59,7 @@ const AddQuestion = () => {
           </div>
 
           <div className="col">
-            <label htmlFor="dateCreated">Date Created</label>
+            <label className="white-label" htmlFor="dateCreated">Date Created</label>
             <input
               type="text"
               className="form-control"
@@ -91,7 +75,7 @@ const AddQuestion = () => {
 
         <div className="row form-group mb-4">
           <div className="col">
-            <label htmlFor="category">Category</label>
+            <label className="white-label" htmlFor="category">Category</label>
             <input
               type="text"
               className="form-control"
@@ -105,7 +89,7 @@ const AddQuestion = () => {
           </div>
 
           <div className="col">
-            <label htmlFor="complexity">Complexity</label>
+            <label className="white-label" htmlFor="complexity">Complexity</label>
             <input
               type="text"
               className="form-control"
@@ -120,7 +104,7 @@ const AddQuestion = () => {
         </div>
 
         <div className="form-group mb-4">
-          <label htmlFor="description">Description</label>
+          <label className="white-label" htmlFor="description">Description</label>
           <textarea
             className="form-control"
             name="description"
