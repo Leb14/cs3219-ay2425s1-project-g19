@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import $ from "jquery";
+import { addQuestion } from "../api/QuestionsApi"; // Import the API function
 import "../css/addQuestion.css";
 
 const AddQuestion = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
-  const [category, setCategory] = useState([]);
+  const [category, setSelectedCategories] = useState([]);
   const [complexity, setComplexity] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,23 +25,19 @@ const AddQuestion = () => {
     };
 
     setLoading(true);
-    axios
-      .post("http://localhost:8000/questions", data)
-      .then(() => {
-        setLoading(false);
-        navigate("/question");
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
+    try {
+      // Call the API function instead of directly calling axios
+      await addQuestion(data);
+      setLoading(false);
+      navigate("/question");
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
   };
 
   const handleChange = (event) => {
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
-
+    const { name, value } = event.target;
     if (name === "title") {
       setTitle(value);
     } else if (name === "image") {
@@ -54,22 +49,29 @@ const AddQuestion = () => {
     }
   };
 
-  const handleCategoryChange = (event, index) => {
-    event.preventDefault();
-    const selectedValue = event.target.value;
-    // Check if the category is already in the array and only add it if it's not
-    if (!category.includes(selectedValue)) {
-      setCategory((prevCategories) => [...prevCategories, selectedValue]);
+  const handleCategoryChange = (event) => {
+    const value = event.target.value;
+    if (value && !category.includes(value)) {
+      setSelectedCategories((prevCategories) => [...prevCategories, value]);
     }
-    const newClickedStates = [...clickedStates];
-    newClickedStates[index] = !newClickedStates[index]; // Toggle clicked state for the specific button
-    setClickedStates(newClickedStates);
-    console.log(category);
+    event.target.value = ""; // Reset dropdown selection
   };
 
-  const categories = ["array", "dynamicProgramming", "graphTheory", "greedy", "hashTable", "heap", "linkedlist", "matrix", "searching"];
-  const isClickeds = categories.map(() => false);
-  const [clickedStates, setClickedStates] = useState(isClickeds);
+  const removeCategory = (categoryToRemove) => {
+    setSelectedCategories(category.filter((item) => item !== categoryToRemove));
+  };
+
+  const categories = [
+    "array",
+    "dynamicProgramming",
+    "graphTheory",
+    "greedy",
+    "hashTable",
+    "heap",
+    "linkedlist",
+    "matrix",
+    "searching",
+  ];
 
   return (
     <div>
@@ -125,44 +127,44 @@ const AddQuestion = () => {
 
           <div className="row form-group mb-4">
             <div className="col">
-              <label className="white-label" htmlFor="category">
+            <label className="white-label" htmlFor="category">
                 Category
               </label>
 
-              <div className="categories">
-                {/* <button className="categoryButton" onClick={handleCategoryChange} value="array" >Array</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="dynamicProgramming">Dynamic Programming</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="graphTheory">Graph Theory</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="greedy">Greedy</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="hashTable">Hash Table</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="heap">Heap</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="linkedlist">Linked List</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="matrix">Matrix</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="searching">Searching</button> */}
+              <div className="row-md-8">
+                <div className="multi-select">
+                  <select
+                    id="categories"
+                    defaultValue=""
+                    onChange={handleCategoryChange}
+                    className="form-select"
+                  >
+                    <option value="" disabled>
+                      Select categories
+                    </option>
+                    {/* Loop through categories from config file */}
+                    {categories.map((cat) => (
+                      <option key={cat.value} value={cat.value}>
+                        {cat.label}
+                      </option>
+                    ))}
+                  </select>
 
-                {clickedStates.map((isClicked, index) => {
-                  return (
-                    <button
-                      key={index}
-                      onClick={(event) => handleCategoryChange(event, index)}
-                      style={{
-                        backgroundColor: isClicked ? 'lightblue' : 'pink', // Change color based on state
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: '0.4rem',
-                        margin: '0.2rem',
-                        borderRadius: '0.5rem',
-                        textAlign: 'center',
-                        height: '2.375rem',
-                        border: 'none',
-                      }}
-                      value={categories[index]}
-                    >
-                      {categories[index]}
-                    </button>
-                  );
-                })}
+                  <div className="selected-categories">
+                    {category.map((cat) => (
+                      <span key={cat} className="tag bg-grey">
+                        {cat}
+                        <button
+                          type="button"
+                          onClick={() => removeCategory(cat)}
+                          className="remove-tag"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -213,8 +215,9 @@ const AddQuestion = () => {
             type="submit"
             className="btn btn-primary"
             onClick={handleSubmit}
+            disabled={loading} // Disable the button while loading
           >
-            Add Question
+            {loading ? "Adding..." : "Add Question"}
           </button>
         </div>
       </form>
