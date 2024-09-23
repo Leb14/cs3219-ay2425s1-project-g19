@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import $ from "jquery";
+import "../css/addQuestion.css";
 
 const AddQuestion = () => {
   const [title, setTitle] = useState("");
@@ -52,13 +54,22 @@ const AddQuestion = () => {
     }
   };
 
-  const handleCategoryChange = (event) => {
+  const handleCategoryChange = (event, index) => {
+    event.preventDefault();
     const selectedValue = event.target.value;
     // Check if the category is already in the array and only add it if it's not
     if (!category.includes(selectedValue)) {
       setCategory((prevCategories) => [...prevCategories, selectedValue]);
     }
+    const newClickedStates = [...clickedStates];
+    newClickedStates[index] = !newClickedStates[index]; // Toggle clicked state for the specific button
+    setClickedStates(newClickedStates);
+    console.log(category);
   };
+
+  const categories = ["array", "dynamicProgramming", "graphTheory", "greedy", "hashTable", "heap", "linkedlist", "matrix", "searching"];
+  const isClickeds = categories.map(() => false);
+  const [clickedStates, setClickedStates] = useState(isClickeds);
 
   return (
     <div>
@@ -117,30 +128,42 @@ const AddQuestion = () => {
               <label className="white-label" htmlFor="category">
                 Category
               </label>
-              <input
-                type="text"
-                className="form-control"
-                id="categoryInput"
-                name="category"
-                value={category} // Display categories as comma-separated
-                placeholder="Select categories"
-                readOnly
-              />
-              <select
-                className="form-control"
-                id="category"
-                onChange={handleCategoryChange}
-              >
-                <option value="rray">Array</option>
-                <option value="dynamicProgramming">Dynamic Programming</option>
-                <option value="graphTheory">Graph Theory</option>
-                <option value="greedy">Greedy</option>
-                <option value="hashTable">Hash Table</option>
-                <option value="heap">Heap</option>
-                <option value="linkedlist">Linked List</option>
-                <option value="matrix">Matrix</option>
-                <option value="searching">Searching</option>
-              </select>
+
+              <div className="categories">
+                {/* <button className="categoryButton" onClick={handleCategoryChange} value="array" >Array</button>
+                <button className="categoryButton" onClick={handleCategoryChange} value="dynamicProgramming">Dynamic Programming</button>
+                <button className="categoryButton" onClick={handleCategoryChange} value="graphTheory">Graph Theory</button>
+                <button className="categoryButton" onClick={handleCategoryChange} value="greedy">Greedy</button>
+                <button className="categoryButton" onClick={handleCategoryChange} value="hashTable">Hash Table</button>
+                <button className="categoryButton" onClick={handleCategoryChange} value="heap">Heap</button>
+                <button className="categoryButton" onClick={handleCategoryChange} value="linkedlist">Linked List</button>
+                <button className="categoryButton" onClick={handleCategoryChange} value="matrix">Matrix</button>
+                <button className="categoryButton" onClick={handleCategoryChange} value="searching">Searching</button> */}
+
+                {clickedStates.map((isClicked, index) => {
+                  return (
+                    <button
+                      key={index}
+                      onClick={(event) => handleCategoryChange(event, index)}
+                      style={{
+                        backgroundColor: isClicked ? 'lightblue' : 'pink', // Change color based on state
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: '0.4rem',
+                        margin: '0.2rem',
+                        borderRadius: '0.5rem',
+                        textAlign: 'center',
+                        height: '2.375rem',
+                        border: 'none',
+                      }}
+                      value={categories[index]}
+                    >
+                      {categories[index]}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="col">
