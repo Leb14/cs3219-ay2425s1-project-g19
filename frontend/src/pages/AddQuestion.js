@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import $ from "jquery";
 import "../css/addQuestion.css";
 
 const AddQuestion = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
-  const [category, setCategory] = useState([]);
+  const [category, setSelectedCategories] = useState([]);
   const [complexity, setComplexity] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -54,17 +53,16 @@ const AddQuestion = () => {
     }
   };
 
-  const handleCategoryChange = (event, index) => {
-    event.preventDefault();
-    const selectedValue = event.target.value;
-    // Check if the category is already in the array and only add it if it's not
-    if (!category.includes(selectedValue)) {
-      setCategory((prevCategories) => [...prevCategories, selectedValue]);
+  const handleCategoryChange = (event) => {
+    const value = event.target.value;
+    if (value && !category.includes(value)) {
+      setSelectedCategories((prevCategories) => [...prevCategories, value]);
     }
-    const newClickedStates = [...clickedStates];
-    newClickedStates[index] = !newClickedStates[index]; // Toggle clicked state for the specific button
-    setClickedStates(newClickedStates);
-    console.log(category);
+    event.target.value = ''; // Reset dropdown selection
+  };
+
+  const removeCategory = (category) => {
+    setSelectedCategories(category.filter((item) => item !== category));
   };
 
   const categories = ["array", "dynamicProgramming", "graphTheory", "greedy", "hashTable", "heap", "linkedlist", "matrix", "searching"];
@@ -129,40 +127,34 @@ const AddQuestion = () => {
                 Category
               </label>
 
-              <div className="categories">
-                {/* <button className="categoryButton" onClick={handleCategoryChange} value="array" >Array</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="dynamicProgramming">Dynamic Programming</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="graphTheory">Graph Theory</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="greedy">Greedy</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="hashTable">Hash Table</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="heap">Heap</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="linkedlist">Linked List</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="matrix">Matrix</button>
-                <button className="categoryButton" onClick={handleCategoryChange} value="searching">Searching</button> */}
+              <div className="row-md-8">
+                <div className="multi-select">
+                  <select
+                    id="categories"
+                    defaultValue= ""
+                    onChange={handleCategoryChange}
+                    className="form-select"
+                  >
+                    <option value="" disabled>Select categories</option>
+                    <option value="Array">Array</option>
+                    <option value="Dynamic Programming">Dynamic Programming</option>
+                    <option value="Greedy Algorithm">Greedy Algorithm</option>
+                    <option value="Graph">Graph</option>
+                    <option value="Tree">Tree</option>
+                    <option value="Searching">Searching</option>
+                    <option value="Shortest Path">Shortest Path</option>
+                    {/* Add more categories as needed */}
+                  </select>
 
-                {clickedStates.map((isClicked, index) => {
-                  return (
-                    <button
-                      key={index}
-                      onClick={(event) => handleCategoryChange(event, index)}
-                      style={{
-                        backgroundColor: isClicked ? 'lightblue' : 'pink', // Change color based on state
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: '0.4rem',
-                        margin: '0.2rem',
-                        borderRadius: '0.5rem',
-                        textAlign: 'center',
-                        height: '2.375rem',
-                        border: 'none',
-                      }}
-                      value={categories[index]}
-                    >
-                      {categories[index]}
-                    </button>
-                  );
-                })}
+                  <div className="selected-categories">
+                    {category.map((category) => (
+                      <span key={category} className="tag bg-grey">
+                        {category}
+                        <button type="button" onClick={() => removeCategory(category)} className="remove-tag">×</button>
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
