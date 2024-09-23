@@ -24,6 +24,19 @@ const Questions = () => {
     fetchQuestions();
   }, []);
 
+  // Handle delete functionality
+  const handleDelete = async (id) => {
+    try {
+      await deleteQuestion(id);
+      setQuestions((prevQuestions) =>
+        prevQuestions.filter((question) => question._id !== id)
+      );
+      console.log("Delete successful");
+    } catch (error) {
+      console.error("Error deleting:", error);
+    }
+  };
+
   return (
     <div>
       {/* Keep the header here */}

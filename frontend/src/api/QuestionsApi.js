@@ -23,3 +23,14 @@ export const getQuestions = async () => {
     throw error;
   }
 };
+
+// Function to delete a specific question by ID
+export const deleteQuestion = async (id) => {
+  try {
+    const response = await axios.delete(`${API_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting question:", error);
+    throw error;
+  }
+};
