@@ -29,7 +29,7 @@ const AddQuestion = () => {
       })
       .catch((error) => {
         setLoading(false);
-        console.error(error);
+        console.log(error);
       });
   };
 
@@ -52,11 +52,9 @@ const AddQuestion = () => {
 
   const handleCategoryChange = (event) => {
     const selectedValue = event.target.value;
-    // Add selected category to the existing categories, separated by a comma
+    // Check if the category is already in the array and only add it if it's not
     if (!category.includes(selectedValue)) {
-      setCategory((prevCategories) =>
-        prevCategories ? prevCategories + `${selectedValue}, ` : selectedValue
-      );
+      setCategory((prevCategories) => [...prevCategories, selectedValue]);
     }
   };
 
@@ -157,6 +155,9 @@ const AddQuestion = () => {
                 onChange={handleChange}
                 required
               >
+                <option value="" disabled selected>
+                  Select Complexity
+                </option>
                 <option value="Easy">Easy</option>
                 <option value="Medium">Medium</option>
                 <option value="Hard">Hard</option>
