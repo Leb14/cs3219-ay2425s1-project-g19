@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import QuestionsComponent from "../components/questionList";
 import Header from "../components/Header";
 
 const Questions = () => {
@@ -23,6 +24,7 @@ const Questions = () => {
           </div>
         </div>
         <hr style={{ margin: "10px 15px", color: "white"}} />
+        <QuestionsComponent/>
       </div>
     </div>
   );
