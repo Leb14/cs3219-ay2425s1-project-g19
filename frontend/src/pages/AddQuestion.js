@@ -1,11 +1,37 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AddQuestion = () => {
-  const [questionName, setQuestionName] = useState("");
-  const [dateCreated, setDateCreated] = useState("");
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
   const [category, setCategory] = useState([]);
   const [complexity, setComplexity] = useState("");
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    const data = {
+      title,
+      image,
+      category,
+      complexity,
+      description,
+    };
+
+    setLoading(true);
+    axios
+      .post("http://localhost:8000/questions", data)
+      .then(() => {
+        setLoading(false);
+        navigate("/question");
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error(error);
+      });
+  };
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -14,9 +40,9 @@ const AddQuestion = () => {
     const value = target.value;
 
     if (name === "title") {
-      setQuestionName(value);
+      setTitle(value);
     } else if (name === "image") {
-      setDateCreated(value);
+      setImage(value);
     } else if (name === "complexity") {
       setComplexity(value);
     } else if (name === "description") {
@@ -50,7 +76,7 @@ const AddQuestion = () => {
 
       <hr style={{ margin: "10px 15px", color: "white" }} />
 
-      <form action="/add" method="post" className="h2-styled">
+      <form className="h2-styled">
         <div>
           <div className="row form-group mb-4">
             <div className="col">
@@ -62,7 +88,7 @@ const AddQuestion = () => {
                 className="form-control"
                 id="title"
                 name="title"
-                value={questionName}
+                value={title}
                 placeholder="Title"
                 onChange={handleChange}
                 required
@@ -78,7 +104,7 @@ const AddQuestion = () => {
                 className="form-control"
                 id="image"
                 name="image"
-                value={dateCreated}
+                value={image}
                 placeholder="Image"
                 onChange={handleChange}
                 required
@@ -157,7 +183,11 @@ const AddQuestion = () => {
         </div>
 
         <div className="form-group mb-4">
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={handleSubmit}
+          >
             Add Question
           </button>
         </div>
