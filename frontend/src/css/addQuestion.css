@@ -1,0 +1,21 @@
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.categoryButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: pink;
+    padding: 0.4rem;
+    margin: 0.2rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    height: 2.375rem;
+    border: none;
+}
+
+.categoryButton:hover {
+    background-color: lightblue;
+}
