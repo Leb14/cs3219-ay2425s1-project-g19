@@ -129,3 +129,28 @@ body {
   .white-label {
     color: white;
   }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: white; /* Change text color for better contrast */
+    margin-right: 5px; /* Space between tags */
+  }
+  
+  .bg-grey {
+    background-color: grey; /* Grey background */
+  }
+  
+  .remove-tag {
+    background: white; /* Remove button background */
+    border-radius: 40px;
+    border: none; /* Remove button border */
+    color: rebeccapurple; /* Change button color to match the tag */
+    cursor: pointer; /* Change cursor to pointer */
+    margin-left: 5px; /* Space between text and button */
+  }
+  

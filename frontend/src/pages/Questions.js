@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import QuestionsComponent from "../components/questionList";
+import QuestionsComponent from "../components/QuestionList";
 import Header from "../components/Header";
 
 const Questions = () => {

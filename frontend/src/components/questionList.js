@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllQuestions } from '../api/questionsApiService';
+import { getAllQuestions } from '../api/QuestionsApiService';
 
 const QuestionsComponent = () => {
   const [questions, setQuestions] = useState([]);
