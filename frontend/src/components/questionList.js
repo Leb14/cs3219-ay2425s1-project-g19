@@ -29,22 +29,38 @@ const QuestionsComponent = () => {
     setCurrentPage(pageNumber);
   };
 
+  const handleEdit = (questionId) => {
+    // Redirect to edit page or handle edit functionality
+    console.log(`Edit question with ID: ${questionId}`);
+    // For example, you can redirect to the edit page:
+    // window.location.href = `/edit-question/${questionId}`;
+  };
+
   return (
     <div>
       <table className="table table-striped">
         <thead>
           <tr>
             <th>Title</th>
-            <th>Tags</th>
+            <th>Category</th>
             <th>Date Created</th>
+            <th>Actions</th> {/* New column for actions */}
           </tr>
         </thead>
         <tbody>
           {currentQuestions.map((question) => (
             <tr key={question._id}>
               <td>{question.title}</td>
-              <td>{question.tags ? question.tags.join(', ') : 'No tags'}</td>
+              <td>{question.category ? question.category.join(', ') : 'No Category'}</td>
               <td>{new Date(question.dateCreated).toLocaleString()}</td>
+              <td>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={() => handleEdit(question._id)}
+                >
+                  Edit
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
