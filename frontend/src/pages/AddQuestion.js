@@ -1,28 +1,62 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AddQuestion = () => {
-  const [questionName, setQuestionName] = useState("");
-  const [dateCreated, setDateCreated] = useState("");
-  const [category, setCategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [category, setCategory] = useState([]);
   const [complexity, setComplexity] = useState("");
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    document.getElementById("addQuestionForm").reportValidity();
+
+    const data = {
+      title,
+      image,
+      category,
+      complexity,
+      description,
+    };
+
+    setLoading(true);
+    axios
+      .post("http://localhost:8000/questions", data)
+      .then(() => {
+        setLoading(false);
+        navigate("/question");
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
+  };
+
+  const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
 
-    if (name === "questionName") {
-      setQuestionName(value);
-    } else if (name === "dateCreated") {
-      setDateCreated(value);
-    } else if (name === "category") {
-      setCategory(value);
+    if (name === "title") {
+      setTitle(value);
+    } else if (name === "image") {
+      setImage(value);
     } else if (name === "complexity") {
       setComplexity(value);
     } else if (name === "description") {
       setDescription(value);
+    }
+  };
+
+  const handleCategoryChange = (event) => {
+    const selectedValue = event.target.value;
+    // Check if the category is already in the array and only add it if it's not
+    if (!category.includes(selectedValue)) {
+      setCategory((prevCategories) => [...prevCategories, selectedValue]);
     }
   };
 
@@ -39,72 +73,105 @@ const AddQuestion = () => {
           </div>
         </div>
       </div>
-      
-      <hr style={{ margin: "10px 15px", color: "white"}} />
 
-      <form action="/add" method="post" className="h2-styled">
-        <div className="row form-group mb-4">
-          <div className="col">
-            <label className="white-label" htmlFor="questionName">Question Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="questionName"
-              name="questionName"
-              value={questionName}
-              placeholder="Question Name"
-              onChange={handleSubmit}
-              required
-            />
+      <hr style={{ margin: "10px 15px", color: "white" }} />
+
+      <form id="addQuestionForm" className="h2-styled">
+        <div>
+          <div className="row form-group mb-4">
+            <div className="col">
+              <label className="white-label" htmlFor="title">
+                Title
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="title"
+                name="title"
+                value={title}
+                placeholder="Title"
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="col">
+              <label className="white-label" htmlFor="image">
+                Image
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="image"
+                name="image"
+                value={image}
+                placeholder="Image"
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
 
-          <div className="col">
-            <label className="white-label" htmlFor="dateCreated">Date Created</label>
-            <input
-              type="text"
-              className="form-control"
-              id="dateCreated"
-              name="dateCreated"
-              value={dateCreated}
-              placeholder="Date Created"
-              onChange={handleSubmit}
-              required
-            />
-          </div>
-        </div>
+          <div className="row form-group mb-4">
+            <div className="col">
+              <label className="white-label" htmlFor="category">
+                Category
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="categoryInput"
+                name="category"
+                value={category} // Display categories as comma-separated
+                placeholder="Select categories"
+                readOnly
+              />
+              <select
+                className="form-control"
+                id="category"
+                onChange={handleCategoryChange}
+              >
+                <option value="rray">Array</option>
+                <option value="dynamicProgramming">Dynamic Programming</option>
+                <option value="graphTheory">Graph Theory</option>
+                <option value="greedy">Greedy</option>
+                <option value="hashTable">Hash Table</option>
+                <option value="heap">Heap</option>
+                <option value="linkedlist">Linked List</option>
+                <option value="matrix">Matrix</option>
+                <option value="searching">Searching</option>
+              </select>
+            </div>
 
-        <div className="row form-group mb-4">
-          <div className="col">
-            <label className="white-label" htmlFor="category">Category</label>
-            <input
-              type="text"
-              className="form-control"
-              id="category"
-              name="category"
-              value={category}
-              placeholder="Category"
-              onChange={handleSubmit}
-              required
-            />
-          </div>
-
-          <div className="col">
-            <label className="white-label" htmlFor="complexity">Complexity</label>
-            <input
-              type="text"
-              className="form-control"
-              id="complexity"
-              name="complexity"
-              value={complexity}
-              placeholder="Complexity"
-              onChange={handleSubmit}
-              required
-            />
+            <div className="col">
+              <label className="white-label" htmlFor="complexity">
+                Complexity
+              </label>
+              <select
+                type="text"
+                className="form-control"
+                id="complexity"
+                name="complexity"
+                value={complexity}
+                placeholder="Complexity"
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled selected>
+                  Select Complexity
+                </option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </div>
           </div>
         </div>
 
         <div className="form-group mb-4">
-          <label className="white-label" htmlFor="description">Description</label>
+          <label className="white-label" htmlFor="description">
+            Description
+          </label>
           <textarea
             className="form-control"
             name="description"
@@ -113,13 +180,17 @@ const AddQuestion = () => {
             rows="12"
             value={description}
             placeholder="Description"
-            onChange={handleSubmit}
+            onChange={handleChange}
             required
           ></textarea>
         </div>
 
         <div className="form-group mb-4">
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={handleSubmit}
+          >
             Add Question
           </button>
         </div>
