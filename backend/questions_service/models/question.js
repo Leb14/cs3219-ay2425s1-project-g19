@@ -23,8 +23,8 @@ const questionSchema = mongoose.Schema({
         required: true,
         default: Date.now
     },
-    images: {
-        type: [String],
+    image: {
+        type: String,
         required: false
     }
 });
