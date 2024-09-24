@@ -16,14 +16,7 @@ const listQuestions = async (req, res) => {
 // @route   GET /questions/:id
 // @access  Public
 const getQuestion = async (req, res) => {
-  try {
-    if (!res.question) {
-      return res.status(404).json({ message: "Question not found" });
-    }
-    res.json(res.question);
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
+  res.json(res.question);
 };
 
 // @desc    Create a question
@@ -35,7 +28,7 @@ const createQuestion = async (req, res) => {
     description: req.body.description,
     category: req.body.category,
     complexity: req.body.complexity,
-    images: req.body.images,
+    image: req.body.image,
   });
 
   try {
@@ -62,8 +55,8 @@ const updateQuestion = async (req, res) => {
   if (req.body.complexity != null) {
     res.question.complexity = req.body.complexity;
   }
-  if (req.body.images != null) {
-    res.question.images = req.body.images;
+  if (req.body.image != null) {
+    res.question.image = req.body.image;
   }
 
   try {
