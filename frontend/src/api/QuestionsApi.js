@@ -32,7 +32,17 @@ export const getQuestion = async (id) => {
     console.error("Error fetching question:", error);
     throw error;
   }
-};
+}
+
+// export const getQuestionByTitle = async (title) => {
+//   try {
+//     const response = await axios.get(`${API_URL}/title/${encodeURIComponent(title)}`); // Adjusted the path to match your route
+//     return response.data; // Return the data from the response
+//   } catch (error) {
+//     console.error("Error fetching question by title:", error);
+//     throw error; // Rethrow the error to handle it in the component
+//   }
+// };
 
 // Function to delete a specific question by ID
 export const deleteQuestion = async (id) => {
