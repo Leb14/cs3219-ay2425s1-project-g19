@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { useState, useEffect } from "react";
-import { getQuestions, deleteQuestion } from "../api/QuestionsApi"; 
+import { getQuestionList, deleteQuestion } from "../api/QuestionsApi"; 
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
@@ -13,7 +13,7 @@ const Questions = () => {
     const fetchQuestions = async () => {
       setLoading(true);
       try {
-        const data = await getQuestions();
+        const data = await getQuestionList();
         setQuestions(data);
         setLoading(false);
       } catch (error) {
