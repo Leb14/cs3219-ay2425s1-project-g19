@@ -4,6 +4,7 @@ import DashBoard from "./pages/DashBoard";
 import AddQuestion from "./pages/AddQuestion";
 import Questions from "./pages/Questions";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import EditQuestion from "./pages/EditQuestion";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
               <Route path="/" element={<DashBoard />} />
               <Route path="/question" element={<Questions />} />
               <Route path="/add" element={<AddQuestion />} />
+              <Route path="/edit/:id" element={<EditQuestion />} />
             </Routes>
           </main>
         </div>

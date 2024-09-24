@@ -16,7 +16,14 @@ const listQuestions = async (req, res) => {
 // @route   GET /questions/:id
 // @access  Public
 const getQuestion = async (req, res) => {
-  res.json(res.question);
+  try {
+    if (!res.question) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+    res.json(res.question);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
 };
 
 // @desc    Create a question
