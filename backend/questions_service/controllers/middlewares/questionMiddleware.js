@@ -1,6 +1,6 @@
 const Question = require('../../models/question');
 
-async function getQuestionById(req, res, next) {
+const getQuestionById = async (req, res, next) => {
     let question;
     try {
         question = await Question.findById(req.params.id);
@@ -17,4 +17,19 @@ async function getQuestionById(req, res, next) {
     next();
 }
 
-module.exports = getQuestionById;
+const checkDuplicateTitle = async (req, res, next) => {
+    const title = req.body.title;
+    try {
+        const existingQuestion = await Question.findOne({ title: title });
+
+        if (existingQuestion) {
+            return res.status(400).json({ message: 'Question with this title already exists' });
+        }
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+
+    next();
+}
+
+module.exports = {getQuestionById, checkDuplicateTitle};
