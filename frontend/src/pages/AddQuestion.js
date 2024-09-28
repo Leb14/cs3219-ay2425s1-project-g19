@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { categories } from "../config/categoryConfig";
+import categories from "../config/categoryConfig";
 import { addQuestion } from "../api/QuestionsApi"; 
 import "../css/addQuestion.css";
 
@@ -34,6 +34,7 @@ const AddQuestion = () => {
     } catch (error) {
       setLoading(false);
       console.error(error);
+      alert(`Failed to add question: ${error.message}`);
     }
   };
 
@@ -107,9 +108,9 @@ const AddQuestion = () => {
                 id="image"
                 name="image"
                 value={image}
-                placeholder="Image"
+                placeholder="Optional"
                 onChange={handleChange}
-                required
+                // required
               />
             </div>
           </div>
