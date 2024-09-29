@@ -15,7 +15,9 @@ function App() {
           <Sidebar />
           <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <Routes>
-              <Route path="/" element={<DashBoard />} />
+              {/* <Route path="/" element={<DashBoard />} /> */}
+              <Route path="/" element={<Questions />} />
+              <Route path="/dashboard" element={<DashBoard />} />
               <Route path="/question" element={<Questions />} />
               <Route path="/add" element={<AddQuestion />} />
               <Route path="/edit/:id" element={<EditQuestion />} />
