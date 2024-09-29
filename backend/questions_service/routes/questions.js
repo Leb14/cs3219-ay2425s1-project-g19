@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const getQuestionById = require('../controllers/middlewares/questionMiddleware');
+const { getQuestionById, checkDuplicateTitle } = require('../controllers/middlewares/questionMiddleware');
 const { listQuestions, getQuestion, createQuestion, updateQuestion, deleteQuestion } = require('../controllers/questionController');
 
 // Get all questions
@@ -10,7 +10,7 @@ router.get('/', listQuestions);
 router.get('/:id', getQuestionById, getQuestion);
 
 // Create a question
-router.post('/', createQuestion);
+router.post('/', checkDuplicateTitle, createQuestion);
 
 // Update a question
 router.patch('/:id', getQuestionById, updateQuestion);

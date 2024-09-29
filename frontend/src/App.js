@@ -1,9 +1,11 @@
 import "./css/main.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import DashBoard from "./pages/DashBoard";
-import AddQuestion from "./pages/AddQuestion";
 import Questions from "./pages/Questions";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AddQuestion from "./pages/AddQuestion";
+import EditQuestion from "./pages/EditQuestion";
+import ViewQuestion from "./pages/ViewQuestion";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
               <Route path="/" element={<DashBoard />} />
               <Route path="/question" element={<Questions />} />
               <Route path="/add" element={<AddQuestion />} />
+              <Route path="/edit/:id" element={<EditQuestion />} />
+              <Route path="/view/:id" element={<ViewQuestion />} />
             </Routes>
           </main>
         </div>

@@ -28,7 +28,7 @@ const createQuestion = async (req, res) => {
     description: req.body.description,
     category: req.body.category,
     complexity: req.body.complexity,
-    images: req.body.images,
+    image: req.body.image,
   });
 
   try {
@@ -55,8 +55,8 @@ const updateQuestion = async (req, res) => {
   if (req.body.complexity != null) {
     res.question.complexity = req.body.complexity;
   }
-  if (req.body.images != null) {
-    res.question.images = req.body.images;
+  if (req.body.image != null) {
+    res.question.image = req.body.image;
   }
 
   try {
