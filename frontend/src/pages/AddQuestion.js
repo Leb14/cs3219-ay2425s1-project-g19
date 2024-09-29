@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import categories from "../config/categoryConfig";
-import { addQuestion } from "../api/QuestionsApi"; 
+import { addQuestion } from "../api/QuestionsApi";
 import "../css/addQuestion.css";
 
 const AddQuestion = () => {
@@ -67,14 +67,6 @@ const AddQuestion = () => {
     <div>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
         <h1 className="h2 h2-styled">Create Question</h1>
-
-        <div className="btn-toolbar mb-2 mb-md-0">
-          <div className="btn-group me-2">
-            <button to="/add" className="btn btn-sm btn-outline-secondary">
-              ?
-            </button>
-          </div>
-        </div>
       </div>
 
       <hr style={{ margin: "10px 15px", color: "white" }} />
