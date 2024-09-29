@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
+import Searchbar from "../components/Searchbar";
 import { useState, useEffect } from "react";
 import { getQuestions, deleteQuestion } from "../api/QuestionsApi"; 
 
@@ -39,11 +39,8 @@ const Questions = () => {
 
   return (
     <div>
-      {/* Keep the header here */}
-      <Header />
-
-      {/* Add content wrapper to push content down from under the header */}
       <div className="content">
+        <Searchbar/>
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
           <h1 className="h2 h2-styled">Questions</h1>
           <div className="btn-toolbar mb-2 mb-md-0">
