@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"; 
-import categories from "../config/categoryConfig"; 
-import { getQuestion, updateQuestion } from "../api/QuestionsApi"; 
+import { useNavigate, useParams } from "react-router-dom";
+import categories from "../config/categoryConfig";
+import { getQuestion, updateQuestion } from "../api/QuestionsApi";
 import "../css/addQuestion.css";
 
 const EditQuestion = () => {
@@ -90,19 +90,15 @@ const EditQuestion = () => {
     <div>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
         <h1 className="h2 h2-styled">Edit Question</h1>
-
-        <div className="btn-toolbar mb-2 mb-md-0">
-          <div className="btn-group me-2">
-            <button to="/add" className="btn btn-sm btn-outline-secondary">
-              ?
-            </button>
-          </div>
-        </div>
       </div>
 
       <hr style={{ margin: "10px 15px", color: "white" }} />
 
-      <form id="updateQuestionForm" className="h2-styled" onSubmit={handleSubmit}>
+      <form
+        id="updateQuestionForm"
+        className="h2-styled"
+        onSubmit={handleSubmit}
+      >
         <div>
           <div className="row form-group mb-4">
             <div className="col">
