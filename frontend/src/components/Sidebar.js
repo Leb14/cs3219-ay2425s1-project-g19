@@ -42,7 +42,7 @@ const Sidebar = () => {
       <a
         className="dashboard-container"
         aria-current="page"
-        href="/"
+        href="/dashboard"
       >
         <img
           src={dashboardIcon}

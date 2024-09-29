@@ -131,9 +131,9 @@ const EditQuestion = () => {
                 id="image"
                 name="image"
                 value={image} // Preload image here
-                placeholder="Image"
+                placeholder="Optional"
                 onChange={handleChange}
-                required
+                // required
               />
             </div>
           </div>

@@ -21,7 +21,12 @@ const ViewQuestion = () => {
                 setImage(questionData.image);
                 setSelectedCategories(questionData.category);
                 setComplexity(questionData.complexity);
-                setDescription(questionData.description);
+                setDescription(questionData.description.split("\n").map((line, index) => (
+                    <p key={index}>
+                        {line}
+                        <br />
+                    </p>
+                )));
                 setLoading(false);
             } catch (error) {
                 setLoading(false);
@@ -54,9 +59,9 @@ const ViewQuestion = () => {
             </div>
 
             {image && (
-            <div className="question_image pt-2 ms-3 text-white">
-                <img src={image} alt={title} />
-            </div>
+                <div className="question_image pt-2 ms-3 text-white">
+                    <img src={image} alt={title} />
+                </div>
             )}
 
             <div className="question_description fs-6 pt-2 ms-3 text-white">
