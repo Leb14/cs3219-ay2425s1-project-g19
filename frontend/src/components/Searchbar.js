@@ -1,8 +1,10 @@
 import React from "react";
+import "../css/searchbar.css"; // Import CSS file for additional styling
 
-const Header = () => {
+const Searchbar = () => {
   return (
-    <header className="header navbar navbar-dark flex-md-nowrap shadow">
+    <div className="searchbar-container">
+
       <form
         className="nav col-12 col-md-auto flex-fill justify-content-center"
         role="search"
@@ -12,13 +14,13 @@ const Header = () => {
         <input
           type="search"
           name="searchTerm"
-          className="form-control form-control-dark w-100 rounded-0 border-0"
+          className="searchbar-input"
           placeholder="Search..."
           aria-label="Search"
         />
       </form>
-    </header>
+    </div>
   );
 };
 
-export default Header;
+export default Searchbar;

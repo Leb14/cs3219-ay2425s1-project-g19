@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Header from "../components/Header";
-import { getQuestionList, deleteQuestion } from "../api/QuestionsApi";
+
+import Searchbar from "../components/Searchbar";
+import { useState, useEffect } from "react";
+import { getQuestions, deleteQuestion } from "../api/QuestionsApi"; 
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
@@ -49,6 +51,7 @@ const Questions = () => {
   return (
     <div>
       <div className="content">
+        <Searchbar/>
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
           <h1 className="h2 h2-styled">Questions</h1>
           <div className="btn-group me-2">
