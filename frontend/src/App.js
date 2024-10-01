@@ -40,7 +40,6 @@ function App() {
             } px-md-4`}
           >
             <Routes>
-              <Route path="/" element={<Login onLogin={handleLogin} />} />
               {isAuthenticated && isAdmin ? (
                 <>
                   <Route path="/dashboard" element={<DashBoard />} />

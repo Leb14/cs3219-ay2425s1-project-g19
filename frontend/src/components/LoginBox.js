@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { login } from "../api/AuthApi";
 import "../css/loginBox.css";
 
-const LoginBox = ({ onLogin }) => {  // Destructure onLogin from props
+const LoginBox = ({ onLogin }) => {  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,6 +21,8 @@ const LoginBox = ({ onLogin }) => {  // Destructure onLogin from props
       console.log(data);
       const response = await login(data);
       setLoading(false);
+      const isAdmin = response.data.isAdmin; 
+      onLogin(isAdmin);
     } catch (error) {
       setLoading(false);
       console.error(error);
