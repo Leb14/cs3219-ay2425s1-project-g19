@@ -1,13 +1,31 @@
 import React, { useState } from "react";
+import { login } from "../api/AuthApi";
 import "../css/loginBox.css";
 
-const LoginBox = () => {
+const LoginBox = ({ onLogin }) => {  // Destructure onLogin from props
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log("Email:", email, "Password:", password);
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    document.getElementById("loginForm").reportValidity();
+
+    const data = {
+      email,
+      password,
+    };
+
+    setLoading(true);
+    try {
+      console.log(data);
+      const response = await login(data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+      alert(`Failed to log in: ${error.message}`);
+    }
   };
 
   return (
@@ -15,7 +33,7 @@ const LoginBox = () => {
       <h1>Log In</h1>
       <p className="text-muted">Log in to your account to continue.</p>
 
-      <form onSubmit={handleLogin} className="w-100">
+      <form id="loginForm" onSubmit={handleLogin} className="w-100">
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email:

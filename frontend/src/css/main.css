@@ -1,7 +1,10 @@
-body {
-    background-color: #0F0A3C;
-    font-size: .875rem;
-  }
+.admin-body {
+  background-color: #0F0A3C; /* Admin background */
+}
+
+.default-body {
+  background-color: white; /* Default user background */
+}
   
   .feather {
     width: 16px;

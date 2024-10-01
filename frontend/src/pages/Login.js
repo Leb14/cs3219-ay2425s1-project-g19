@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import LoginBox from "../components/LoginBox";
 
 const Login = () => {
+  const onLogin = (isAdmin) => {
+    console.log("User logged in. Admin status:", isAdmin);
+
+  };
+
   return (
     <div>
       <div className="content">
-        <LoginBox/>
-      </div> 
+        <LoginBox onLogin={onLogin} />  {/* Pass onLogin as a prop */}
+      </div>
     </div>
   );
 };

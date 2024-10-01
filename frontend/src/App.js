@@ -6,22 +6,52 @@ import Questions from "./pages/Questions";
 import AddQuestion from "./pages/AddQuestion";
 import EditQuestion from "./pages/EditQuestion";
 import ViewQuestion from "./pages/ViewQuestion";
+import Login from "./pages/Login";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const handleLogin = (admin) => {
+    setIsAuthenticated(true);
+    setIsAdmin(admin);
+  };
+
+  useEffect(() => {
+    // Update the body background based on the admin status
+    if (isAdmin) {
+      document.body.classList.add("admin-body");
+      document.body.classList.remove("default-body");
+    } else {
+      document.body.classList.add("default-body");
+      document.body.classList.remove("admin-body");
+    }
+  }, [isAdmin]);
+
   return (
     <BrowserRouter>
       <div className="container-fluid">
         <div className="row">
-          <Sidebar />
-          <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          {isAuthenticated && isAdmin && <Sidebar />}
+          <main
+            className={`col-md-${isAuthenticated && isAdmin ? "9" : "12"} ms-sm-auto col-lg-${
+              isAuthenticated && isAdmin ? "10" : "12"
+            } px-md-4`}
+          >
             <Routes>
-              {/* <Route path="/" element={<DashBoard />} /> */}
-              <Route path="/" element={<Questions />} />
-              <Route path="/dashboard" element={<DashBoard />} />
-              <Route path="/question" element={<Questions />} />
-              <Route path="/add" element={<AddQuestion />} />
-              <Route path="/edit/:id" element={<EditQuestion />} />
-              <Route path="/view/:id" element={<ViewQuestion />} />
+              <Route path="/" element={<Login onLogin={handleLogin} />} />
+              {isAuthenticated && isAdmin ? (
+                <>
+                  <Route path="/dashboard" element={<DashBoard />} />
+                  <Route path="/question" element={<Questions />} />
+                  <Route path="/add" element={<AddQuestion />} />
+                  <Route path="/edit/:id" element={<EditQuestion />} />
+                  <Route path="/view/:id" element={<ViewQuestion />} />
+                </>
+              ) : (
+                <Route path="/" element={<Login onLogin={handleLogin} />} />
+              )}
             </Routes>
           </main>
         </div>
