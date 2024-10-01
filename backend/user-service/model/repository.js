@@ -1,5 +1,6 @@
 const UserModel = require("./user-model.js");
-require("dotenv").config();
+const dotenv = require('dotenv');
+dotenv.config();
 const { connect } = require("mongoose");
 
 const connectToDB = async () => {
@@ -7,8 +8,10 @@ const connectToDB = async () => {
     process.env.ENV === "PROD"
       ? process.env.DB_CLOUD_URI
       : process.env.DB_LOCAL_URI;
+  await connect(mongoDBUri, {
+    serverSelectionTimeoutMS: 5000, // Adjust timeout if needed
+  });
 
-  await connect(mongoDBUri);
 };
 
 const createUser = async (username, email, password) => {
@@ -30,7 +33,7 @@ const findUserByUsername = async (username) => {
 const findUserByUsernameOrEmail = async (username, email) => {
   return UserModel.findOne({
     $or: [
-      { username },
+      { username }, 
       { email },
     ],
   });
