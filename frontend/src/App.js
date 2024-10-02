@@ -10,16 +10,24 @@ import Login from "./pages/Login";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return JSON.parse(sessionStorage.getItem("isAuthenticated")) || false;
+  });
+
+  const [isAdmin, setIsAdmin] = useState(() => {
+    return JSON.parse(sessionStorage.getItem("isAdmin")) || false;
+  });
 
   const handleLogin = (admin) => {
     setIsAuthenticated(true);
     setIsAdmin(admin);
+
+    sessionStorage.setItem("isAuthenticated", true);
+    sessionStorage.setItem("isAdmin", admin);
   };
 
   useEffect(() => {
-    // Update the body background based on the admin status
+    // Update body background based on the admin status
     if (isAdmin) {
       document.body.classList.add("admin-body");
       document.body.classList.remove("default-body");

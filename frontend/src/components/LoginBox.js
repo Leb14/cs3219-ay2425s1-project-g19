@@ -71,7 +71,7 @@ const LoginBox = ({ onLogin }) => {
         </button>
       </form>
 
-      <div className="mt-3 text-center">
+      <div className="mt-4 text-center">
         <p>
           Don't have an account? <a href="/signup">Sign Up</a>
         </p>
