@@ -1,13 +1,13 @@
 import "./css/main.css";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import DashBoard from "./pages/DashBoard";
-import Questions from "./pages/Questions";
-import AddQuestion from "./pages/AddQuestion";
-import EditQuestion from "./pages/EditQuestion";
-import ViewQuestion from "./pages/ViewQuestion";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import DashBoard from "./pages/admin/DashBoard";
+import Questions from "./pages/admin/Questions";
+import AddQuestion from "./pages/admin/AddQuestion";
+import EditQuestion from "./pages/admin/EditQuestion";
+import ViewQuestion from "./pages/admin/ViewQuestion";
+import Login from "./pages/user/Login";
+import Register from "./pages/user/Register";
 import { useState, useEffect } from "react";
 
 function App() {

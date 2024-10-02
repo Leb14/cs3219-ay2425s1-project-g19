@@ -1,5 +1,5 @@
 import React from "react";
-import RegisterBox from "../components/RegisterBox";
+import RegisterBox from "../../components/RegisterBox";
 
 const Register = ({ onRegister }) => {
   const handleRegister = (isAdmin) => {

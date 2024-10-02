@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // import Searchbar from "../components/Searchbar";
-import { getQuestionList, deleteQuestion } from "../api/QuestionsApi"; 
+import { getQuestionList, deleteQuestion } from "../../api/QuestionsApi"; 
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);

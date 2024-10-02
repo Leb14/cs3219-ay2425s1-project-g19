@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getQuestion } from "../api/QuestionsApi";
+import { getQuestion } from "../../api/QuestionsApi";
 
 const ViewQuestion = () => {
     const [title, setTitle] = useState("");

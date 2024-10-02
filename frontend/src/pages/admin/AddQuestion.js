@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import categories from "../config/categoryConfig";
-import { addQuestion } from "../api/QuestionsApi";
-import "../css/addQuestion.css";
+import categories from "../../config/categoryConfig";
+import { addQuestion } from "../../api/QuestionsApi";
+import "../../css/addQuestion.css";
 
 const AddQuestion = () => {
   const [title, setTitle] = useState("");
@@ -191,8 +191,6 @@ const AddQuestion = () => {
             required
           ></textarea>
         </div>
-
-
       </form>
       <div className="add-button mb-4 d-flex justify-content-end gap-2">
         <button

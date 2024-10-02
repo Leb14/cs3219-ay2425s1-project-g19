@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import categories from "../config/categoryConfig";
-import { getQuestion, updateQuestion } from "../api/QuestionsApi";
-import "../css/addQuestion.css";
+import categories from "../../config/categoryConfig";
+import { getQuestion, updateQuestion } from "../../api/QuestionsApi";
+import "../../css/addQuestion.css";
 
 const EditQuestion = () => {
   const [title, setTitle] = useState("");
