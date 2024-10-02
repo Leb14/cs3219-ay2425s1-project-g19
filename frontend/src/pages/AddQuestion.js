@@ -192,17 +192,25 @@ const AddQuestion = () => {
           ></textarea>
         </div>
 
-        <div className="form-group mb-4">
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={handleSubmit}
-            disabled={loading} // Disable the button while loading
-          >
-            {loading ? "Adding..." : "Add Question"}
-          </button>
-        </div>
+
       </form>
+      <div className="add-button mb-4 d-flex justify-content-end gap-2">
+        <button
+          className="btn"
+          onClick={() => navigate("/question")} // Fixed the Cancel button
+          disabled={loading}
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          className="btn"
+          onClick={handleSubmit}
+          disabled={loading} // Disable the button while loading
+        >
+          {loading ? "Adding..." : "Add Question"}
+        </button>
+      </div>
     </div>
   );
 };
