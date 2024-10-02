@@ -18,12 +18,9 @@ function App() {
     return JSON.parse(sessionStorage.getItem("isAdmin")) || false;
   });
 
-  const handleLogin = (admin) => {
-    setIsAuthenticated(true);
-    setIsAdmin(admin);
-
-    sessionStorage.setItem("isAuthenticated", true);
-    sessionStorage.setItem("isAdmin", admin);
+  const handleLogin = () => {
+    setIsAuthenticated(JSON.parse(sessionStorage.getItem("isAuthenticated")));
+    setIsAdmin(JSON.parse(sessionStorage.getItem("isAdmin")));
   };
 
   useEffect(() => {
@@ -50,7 +47,7 @@ function App() {
             <Routes>
               {isAuthenticated && isAdmin ? (
                 <>
-                  <Route path="/dashboard" element={<DashBoard />} />
+                  <Route path="/" element={<DashBoard />} />
                   <Route path="/question" element={<Questions />} />
                   <Route path="/add" element={<AddQuestion />} />
                   <Route path="/edit/:id" element={<EditQuestion />} />

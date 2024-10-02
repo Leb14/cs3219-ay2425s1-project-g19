@@ -21,8 +21,13 @@ const LoginBox = ({ onLogin }) => {
       console.log(data);
       const response = await login(data);
       setLoading(false);
+
       const isAdmin = response.data.isAdmin; 
-      onLogin(isAdmin);
+
+      sessionStorage.setItem("isAuthenticated", true);
+      sessionStorage.setItem("isAdmin", isAdmin);
+
+      onLogin(isAdmin);      
     } catch (error) {
       setLoading(false);
       console.error(error);

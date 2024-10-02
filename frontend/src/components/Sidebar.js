@@ -34,7 +34,7 @@ const Sidebar = () => {
       <hr className="sidebar-divider" />
 
       <Link
-        to="/dashboard"
+        to="/"
         className={`dashboard-container ${activeLink === "/dashboard" ? "active" : ""}`}
       >
         <img
