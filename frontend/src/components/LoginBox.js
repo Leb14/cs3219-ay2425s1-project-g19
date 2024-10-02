@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom'; 
 import { login } from "../api/AuthApi";
 import "../css/authBox.css";
 import eyeIcon from "../assets/view.png"; 
@@ -100,10 +101,10 @@ const LoginBox = ({ onLogin }) => {
 
       <div className="mt-4 text-center">
         <p>
-          Don't have an account? <a href="/register">Sign Up</a>
+          Don't have an account? <Link to="/register">Sign Up</Link>
         </p>
         <p>
-          <a href="/forgot-password">Forgot Password?</a>
+          <Link to="/forgot-password">Forgot Password?</Link>
         </p>
       </div>
     </div>

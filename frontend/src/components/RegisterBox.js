@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom'; 
 import { useNavigate } from "react-router-dom";
 import { createAccount } from "../api/UserApi";
 import "../css/authBox.css";
@@ -173,7 +174,7 @@ const RegisterBox = () => {
 
       <div className="mt-4 text-center">
         <p>
-          Already have an account? <a href="/">Log In</a>
+          Already have an account? <Link to="/">Log In</Link>
         </p>
       </div>
     </div>

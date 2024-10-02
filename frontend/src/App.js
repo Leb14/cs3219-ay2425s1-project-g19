@@ -8,6 +8,7 @@ import EditQuestion from "./pages/admin/EditQuestion";
 import ViewQuestion from "./pages/admin/ViewQuestion";
 import Login from "./pages/user/Login";
 import Register from "./pages/user/Register";
+import Transition from "./transition/Transition";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -61,8 +62,22 @@ function App() {
                 </>
               ) : (
                 <>
-                  <Route path="/" element={<Login onLogin={handleLogin} />} />
-                  <Route path="/register" element={<Register />} />
+                  <Route 
+                    path="/" 
+                    element={
+                      <Transition>
+                        <Login />
+                      </Transition>
+                    } 
+                  />
+                  <Route 
+                    path="/register" 
+                    element={
+                      <Transition>
+                        <Register />
+                      </Transition>
+                    }  
+                  />
                 </>
               )}
             </Routes>
