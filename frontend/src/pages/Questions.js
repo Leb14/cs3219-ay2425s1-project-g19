@@ -103,7 +103,14 @@ const Questions = () => {
                       <Link to={`/edit/${question._id}`} className="btn btn-warning btn-small">
                         <i className="bi bi-pencil"></i>
                       </Link>
-                      <button onClick={() => handleDelete(question._id)} className="btn btn-danger btn-small"> {/* Use button instead of form */}
+                      <button
+                        onClick={() => {
+                          if (window.confirm("Are you sure you want to delete this question?")) {
+                            handleDelete(question._id);
+                          }
+                        }}
+                        className="btn btn-danger btn-small"
+                      >
                         <i className="bi bi-person-x"></i>
                       </button>
                     </div>
