@@ -7,6 +7,7 @@ import AddQuestion from "./pages/AddQuestion";
 import EditQuestion from "./pages/EditQuestion";
 import ViewQuestion from "./pages/ViewQuestion";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -59,7 +60,10 @@ function App() {
                   <Route path="/view/:id" element={<ViewQuestion />} />
                 </>
               ) : (
-                <Route path="/" element={<Login onLogin={handleLogin} />} />
+                <>
+                  <Route path="/" element={<Login onLogin={handleLogin} />} />
+                  <Route path="/register" element={<Register />} />
+                </>
               )}
             </Routes>
           </main>

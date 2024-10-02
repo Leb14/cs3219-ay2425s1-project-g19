@@ -10,10 +10,10 @@ export const login = async (data) => {
       return response.data; // Return response if needed
     } catch (error) {
       if (error.response) {
-        console.error("Error adding question:", error.response.data);
+        console.error("Error logging in:", error.response.data);
         throw new Error(error.response.data.message);
       }
-      console.error("Error adding question:", error);
+      console.error("Error logging in:", error);
       throw error; // Re-throw the error to handle it in the component
     }
   };

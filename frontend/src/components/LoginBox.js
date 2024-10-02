@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { login } from "../api/AuthApi";
-import "../css/loginBox.css";
+import "../css/authBox.css";
 import eyeIcon from "../assets/view.png"; 
 import eyeOffIcon from "../assets/hide.png"; 
 
@@ -46,9 +46,9 @@ const LoginBox = ({ onLogin }) => {
   };
 
   return (
-    <div className="loginContainer d-flex flex-column align-items-center">
+    <div className="authContainer d-flex flex-column align-items-center">
       <h1>Log In</h1>
-      <p className="text-muted">Log in to your account to continue.</p>
+      <p className="text-muted">Log in to your account to continue</p>
 
       <form id="loginForm" onSubmit={handleLogin} className="w-100">
         <div className="mb-3">
@@ -100,7 +100,7 @@ const LoginBox = ({ onLogin }) => {
 
       <div className="mt-4 text-center">
         <p>
-          Don't have an account? <a href="/signup">Sign Up</a>
+          Don't have an account? <a href="/register">Sign Up</a>
         </p>
         <p>
           <a href="/forgot-password">Forgot Password?</a>
