@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "concurrently \"npm start --prefix ./user-service\" \"npm start --prefix ./questions_service\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  },
+  "dependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
