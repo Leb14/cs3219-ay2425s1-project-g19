@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // import Searchbar from "../components/Searchbar";
-import { getQuestionList, deleteQuestion } from "../api/QuestionsApi"; 
+import { getQuestionList, deleteQuestion } from "../../api/QuestionsApi"; 
 
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
@@ -54,7 +54,7 @@ const Questions = () => {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
           <h1 className="h2 h2-styled">Questions</h1>
           <div className="btn-group me-2">
-            <Link to="/add" className="btn btn-sm btn-outline-secondary">
+            <Link to="/add" className="btn btn-sm btn-white-text">
               + New Question
             </Link>
           </div>
@@ -67,6 +67,7 @@ const Questions = () => {
             value={searchInput}
             onChange={handleSearchChange}
             className="form-control"
+            style={{height: "50px", fontSize: "18px"}}
           />
         </div>
         <hr style={{ margin: "10px 15px", color: "white" }} />
@@ -103,14 +104,16 @@ const Questions = () => {
                       <Link to={`/edit/${question._id}`} className="btn btn-warning btn-small">
                         <i className="bi bi-pencil"></i>
                       </Link>
-                      <form onSubmit={(e) => {
-                        e.preventDefault();
-                        handleDelete(question._id);
-                      }}>
-                        <button type="submit" className="btn btn-danger btn-small">
-                          <i className="bi bi-person-x"></i>
-                        </button>
-                      </form>
+                      <button
+                        onClick={() => {
+                          if (window.confirm("Are you sure you want to delete this question?")) {
+                            handleDelete(question._id);
+                          }
+                        }}
+                        className="btn btn-danger btn-small"
+                      >
+                        <i className="bi bi-person-x"></i>
+                      </button>
                     </div>
                   </td>
                 </tr>

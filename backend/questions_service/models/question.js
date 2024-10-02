@@ -11,7 +11,7 @@ const questionSchema = mongoose.Schema({
     },
     category: {
         type: [String],
-        required: true
+        required: true 
     },
     complexity: {
         type: String,

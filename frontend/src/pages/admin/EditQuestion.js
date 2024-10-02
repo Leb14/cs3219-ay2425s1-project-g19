@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import categories from "../config/categoryConfig";
-import { addQuestion } from "../api/QuestionsApi";
-import "../css/addQuestion.css";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import categories from "../../config/categoryConfig";
+import { getQuestion, updateQuestion } from "../../api/QuestionsApi";
+import "../../css/addQuestion.css";
 
-const AddQuestion = () => {
+const EditQuestion = () => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [category, setSelectedCategories] = useState([]);
@@ -12,32 +12,30 @@ const AddQuestion = () => {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { id } = useParams(); // Get the question id from the route parameter
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    document.getElementById("addQuestionForm").reportValidity();
-
-    const data = {
-      title,
-      image,
-      category,
-      complexity,
-      description,
+  // Function to preload data
+  useEffect(() => {
+    const preloadQuestion = async () => {
+      setLoading(true);
+      try {
+        const questionData = await getQuestion(id); // Fetch the question data by id
+        setTitle(questionData.title); // Set state with the fetched data
+        setImage(questionData.image);
+        setSelectedCategories(questionData.category);
+        setComplexity(questionData.complexity);
+        setDescription(questionData.description);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.error("Error fetching question:", error);
+      }
     };
 
-    setLoading(true);
-    try {
-      console.log(data);
-      await addQuestion(data);
-      setLoading(false);
-      navigate("/question");
-    } catch (error) {
-      setLoading(false);
-      console.error(error);
-      alert(`Failed to add question: ${error.message}`);
-    }
-  };
+    preloadQuestion(); // Call the function on component mount
+  }, [id]); // `useEffect` depends on `id`, so it runs when `id` changes
 
+  // Function to handle input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "title") {
@@ -51,6 +49,7 @@ const AddQuestion = () => {
     }
   };
 
+  // Function to handle category selection
   const handleCategoryChange = (event) => {
     const value = event.target.value;
     if (value && !category.includes(value)) {
@@ -59,19 +58,47 @@ const AddQuestion = () => {
     event.target.value = ""; // Reset dropdown selection
   };
 
+  // Function to remove selected category
   const removeCategory = (categoryToRemove) => {
     setSelectedCategories(category.filter((item) => item !== categoryToRemove));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    document.getElementById("updateQuestionForm").reportValidity();
+
+    const data = {
+      title,
+      image,
+      category,
+      complexity,
+      description,
+    };
+
+    setLoading(true);
+    try {
+      await updateQuestion(id, data);
+      setLoading(false);
+      navigate("/question");
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
   };
 
   return (
     <div>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
-        <h1 className="h2 h2-styled">Create Question</h1>
+        <h1 className="h2 h2-styled">Edit Question</h1>
       </div>
 
       <hr style={{ margin: "10px 15px", color: "white" }} />
 
-      <form id="addQuestionForm" className="h2-styled">
+      <form
+        id="updateQuestionForm"
+        className="h2-styled"
+        onSubmit={handleSubmit}
+      >
         <div>
           <div className="row form-group mb-4">
             <div className="col">
@@ -83,7 +110,7 @@ const AddQuestion = () => {
                 className="form-control"
                 id="title"
                 name="title"
-                value={title}
+                value={title} // Preload title here
                 placeholder="Title"
                 onChange={handleChange}
                 required
@@ -99,7 +126,7 @@ const AddQuestion = () => {
                 className="form-control"
                 id="image"
                 name="image"
-                value={image}
+                value={image} // Preload image here
                 placeholder="Optional"
                 onChange={handleChange}
                 // required
@@ -159,12 +186,12 @@ const AddQuestion = () => {
                 className="form-control"
                 id="complexity"
                 name="complexity"
-                value={complexity}
+                value={complexity} // Preload complexity here
                 placeholder="Complexity"
                 onChange={handleChange}
                 required
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Select Complexity
                 </option>
                 <option value="Easy">Easy</option>
@@ -185,26 +212,32 @@ const AddQuestion = () => {
             id="description"
             cols="30"
             rows="12"
-            value={description}
+            value={description} // Preload description here
             placeholder="Description"
             onChange={handleChange}
             required
           ></textarea>
         </div>
-
-        <div className="form-group mb-4">
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={handleSubmit}
-            disabled={loading} // Disable the button while loading
-          >
-            {loading ? "Adding..." : "Add Question"}
-          </button>
-        </div>
       </form>
+      <div className="add-button mb-4 d-flex justify-content-end gap-2">
+        <button
+          className="btn"
+          onClick={() => navigate("/question")} // Fixed the Cancel button
+          disabled={loading}
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          className="btn"
+          onClick={handleSubmit}
+          disabled={loading} // Disable the button while loading
+        >
+          {loading ? "saving..." : "Save Question"}
+        </button>
+      </div>
     </div>
   );
 };
 
-export default AddQuestion;
+export default EditQuestion;

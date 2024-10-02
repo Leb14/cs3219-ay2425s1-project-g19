@@ -1,7 +1,10 @@
-body {
-    background-color: #0F0A3C;
-    font-size: .875rem;
-  }
+.admin-body {
+  background-color: #0F0A3C; /* Admin background */
+}
+
+.default-body {
+  background-color: white; /* Default user background */
+}
   
   .feather {
     width: 16px;
@@ -118,12 +121,12 @@ body {
   }
 
   .content {
-    padding-top: 50px; /* Adjust based on the header height */
+    padding-top: 20px; /* Adjust based on the header height */
   }
 
   .h2-styled {
     color: white;;
-    padding: 5px 20px;         /* Padding around the text */
+    padding: 15px 0px;
   }
 
   .white-label {
@@ -152,4 +155,16 @@ body {
     color: rebeccapurple; /* Change button color to match the tag */
     cursor: pointer; /* Change cursor to pointer */
     margin-left: 5px; /* Space between text and button */
+  }
+
+  .btn-white-text {
+    color: white; 
+    background-color: transparent;
+    font-size: 18px;
+    border: 1px solid white;
+  }
+  
+  .btn-white-text:hover {
+    background-color: white;
+    color: black;
   }
