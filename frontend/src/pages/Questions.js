@@ -54,7 +54,7 @@ const Questions = () => {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
           <h1 className="h2 h2-styled">Questions</h1>
           <div className="btn-group me-2">
-            <Link to="/add" className="btn btn-sm btn-outline-secondary">
+            <Link to="/add" className="btn btn-sm btn-white-text">
               + New Question
             </Link>
           </div>
@@ -67,6 +67,7 @@ const Questions = () => {
             value={searchInput}
             onChange={handleSearchChange}
             className="form-control"
+            style={{height: "50px", fontSize: "18px"}}
           />
         </div>
         <hr style={{ margin: "10px 15px", color: "white" }} />
