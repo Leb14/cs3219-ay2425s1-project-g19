@@ -103,14 +103,9 @@ const Questions = () => {
                       <Link to={`/edit/${question._id}`} className="btn btn-warning btn-small">
                         <i className="bi bi-pencil"></i>
                       </Link>
-                      <form onSubmit={(e) => {
-                        e.preventDefault();
-                        handleDelete(question._id);
-                      }}>
-                        <button type="submit" className="btn btn-danger btn-small">
-                          <i className="bi bi-person-x"></i>
-                        </button>
-                      </form>
+                      <button onClick={() => handleDelete(question._id)} className="btn btn-danger btn-small"> {/* Use button instead of form */}
+                        <i className="bi bi-person-x"></i>
+                      </button>
                     </div>
                   </td>
                 </tr>
