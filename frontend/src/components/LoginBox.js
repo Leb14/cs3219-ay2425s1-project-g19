@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { login } from "../api/AuthApi";
 import "../css/loginBox.css";
+import eyeIcon from "../assets/view.png"; 
+import eyeOffIcon from "../assets/hide.png"; 
 
 const LoginBox = ({ onLogin }) => {  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false); 
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -37,6 +40,11 @@ const LoginBox = ({ onLogin }) => {
     }
   };
 
+  // Toggle password visibility
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
   return (
     <div className="loginContainer d-flex flex-column align-items-center">
       <h1>Log In</h1>
@@ -58,12 +66,12 @@ const LoginBox = ({ onLogin }) => {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-4 position-relative">
           <label htmlFor="password" className="form-label">
             Password:
           </label>
           <input
-            type="password"
+            type={isPasswordVisible ? "text" : "password"} 
             id="password"
             className="form-control"
             placeholder="Your Password here"
@@ -71,6 +79,18 @@ const LoginBox = ({ onLogin }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <button 
+            type="button" 
+            className="password-toggle-btn" 
+            onClick={togglePasswordVisibility} 
+            style={{ position: "absolute", right: "10px", top: "35px", background: "none", border: "none", cursor: "pointer" }}
+          >
+            <img 
+              src={isPasswordVisible ? eyeIcon : eyeOffIcon} 
+              alt={isPasswordVisible ? "Hide password" : "Show password"} 
+              style={{ width: "18px", height: "18px", opacity:"0.5" }} 
+            />
+          </button>
         </div>
 
         <button type="submit" className="btn w-100">
