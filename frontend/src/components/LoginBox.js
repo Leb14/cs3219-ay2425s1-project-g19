@@ -29,7 +29,7 @@ const LoginBox = ({ onLogin }) => {
       sessionStorage.setItem("isAdmin", isAdmin);
       sessionStorage.setItem("token", token);
 
-      onLogin(isAdmin);      
+      onLogin();      
     } catch (error) {
       setLoading(false);
       console.error(error);

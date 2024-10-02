@@ -3,8 +3,7 @@ import LoginBox from "../components/LoginBox";
 
 const Login = ({ onLogin }) => {
   const handleLogin = (isAdmin) => {
-    console.log("User logged in. Admin status:", isAdmin);
-    onLogin(isAdmin); // Call the onLogin function passed from App
+    onLogin();
   };
 
   return (
