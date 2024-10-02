@@ -66,7 +66,7 @@ const Sidebar = ({onLogout}) => {
 
       <button 
         onClick={() => {
-          if (window.confirm("Are you sure you want to delete this question?")) {
+          if (window.confirm("Are you sure you want to log out?")) {
             handleLogout();
           }
         }}
