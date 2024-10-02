@@ -6,7 +6,7 @@ import eyeIcon from "../assets/view.png";
 import eyeOffIcon from "../assets/hide.png"; 
 import PasswordStrengthValidator from "../components/utils/PasswordValidator";
 
-const RegisterBox = ({ onLogin }) => {  
+const RegisterBox = () => {  
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
