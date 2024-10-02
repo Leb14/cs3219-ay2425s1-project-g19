@@ -30,6 +30,7 @@
 }
 
 .user-container:hover {
+  text-decoration: none; 
   background-color: #f0f0f0; /* Change to your desired background color on hover */
   cursor: pointer; /* Show pointer cursor on hover */
 }
@@ -65,6 +66,7 @@
 }
 
 .dashboard-container:hover {
+  text-decoration: none; 
   background-color: #f0f0f0; /* Change to your desired background color on hover */
   cursor: pointer; /* Show pointer cursor on hover */
 }
@@ -93,6 +95,7 @@
 }
 
 .questions-container:hover {
+  text-decoration: none; 
   background-color: #f0f0f0; /* Change to your desired background color on hover */
   cursor: pointer; /* Show pointer cursor on hover */
 }
@@ -106,4 +109,20 @@
   font-size: 25px;
   color: #000000;
   padding-top:10px;
+}
+
+nav button.btn {
+  background-color: rgb(255, 47, 47);
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  margin-top: auto;
+}
+
+nav button.btn:hover {
+  color: white;
+  background-color: rgb(211, 65, 12);
 }

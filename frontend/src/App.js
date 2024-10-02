@@ -1,5 +1,5 @@
 import "./css/main.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import DashBoard from "./pages/DashBoard";
 import Questions from "./pages/Questions";
@@ -23,6 +23,11 @@ function App() {
     setIsAdmin(JSON.parse(sessionStorage.getItem("isAdmin")));
   };
 
+  const handleLogout = () => {
+    setIsAuthenticated(JSON.parse(sessionStorage.getItem("isAuthenticated")));
+    setIsAdmin(JSON.parse(sessionStorage.getItem("isAdmin")));
+  };
+
   useEffect(() => {
     // Update body background based on the admin status
     if (isAdmin) {
@@ -38,7 +43,7 @@ function App() {
     <BrowserRouter>
       <div className="container-fluid">
         <div className="row">
-          {isAuthenticated && isAdmin && <Sidebar />}
+          {isAuthenticated && isAdmin && <Sidebar onLogout={handleLogout} />}
           <main
             className={`col-md-${isAuthenticated && isAdmin ? "9" : "12"} ms-sm-auto col-lg-${
               isAuthenticated && isAdmin ? "10" : "12"

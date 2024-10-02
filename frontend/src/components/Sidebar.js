@@ -6,7 +6,7 @@ import userIcon from "../assets/user.png";
 import peerPrep from "../assets/peerprep.png";
 import "../css/sidebar.css"; // Import CSS file for additional styling
 
-const Sidebar = () => {
+const Sidebar = ({onLogout}) => {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState("/");
 
@@ -14,12 +14,19 @@ const Sidebar = () => {
     setActiveLink(location.pathname);
   }, [location.pathname]);
 
+  const handleLogout = () => {
+    sessionStorage.setItem("isAuthenticated", false);
+    sessionStorage.setItem("isAdmin", false);
+    sessionStorage.removeItem("token");
+    onLogout();
+  }
+
   return (
     <nav id="sidebarMenu" className="sidebar">
       <img 
         src={peerPrep} 
         alt="PeerPrep Logo" 
-        className="peer-prep-logo"
+        className="peer-prep-logo mt-4"
       />
 
       <Link to="/profile" className="user-container">
@@ -56,6 +63,18 @@ const Sidebar = () => {
         />
         <p className="questions-text">Questions</p>
       </Link>
+
+      <button 
+        onClick={() => {
+          if (window.confirm("Are you sure you want to delete this question?")) {
+            handleLogout();
+          }
+        }}
+        type="submit" 
+        className="btn"
+      >
+        Log Out
+      </button>
     </nav>
   );
 };
