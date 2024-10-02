@@ -23,9 +23,11 @@ const LoginBox = ({ onLogin }) => {
       setLoading(false);
 
       const isAdmin = response.data.isAdmin; 
+      const token = response.data.accessToken;
 
       sessionStorage.setItem("isAuthenticated", true);
       sessionStorage.setItem("isAdmin", isAdmin);
+      sessionStorage.setItem("token", token);
 
       onLogin(isAdmin);      
     } catch (error) {
