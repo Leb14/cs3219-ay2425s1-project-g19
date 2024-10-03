@@ -6,6 +6,7 @@ import Questions from "./pages/admin/Questions";
 import AddQuestion from "./pages/admin/AddQuestion";
 import EditQuestion from "./pages/admin/EditQuestion";
 import ViewQuestion from "./pages/admin/ViewQuestion";
+import Users from "./pages/admin/Users";
 import Login from "./pages/user/Login";
 import Register from "./pages/user/Register";
 import Transition from "./transition/Transition";
@@ -62,6 +63,7 @@ function App() {
                   <Route path="/add" element={<AddQuestion />} />
                   <Route path="/edit/:id" element={<EditQuestion />} />
                   <Route path="/view/:id" element={<ViewQuestion />} />
+                  <Route path="/users" element={<Users />} />
                 </>
               ) : (
                 <>
