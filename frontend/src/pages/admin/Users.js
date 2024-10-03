@@ -31,8 +31,8 @@ const Users = () => {
   const handleDelete = async (id) => {
     try {
       await deleteUser(id);
-    const users = await getAllUser();
-    setUsers(users.data);
+      const users = await getAllUser();
+      setUsers(users.data);
     } catch (error) {
       console.error("Error deleting:", error);
     }

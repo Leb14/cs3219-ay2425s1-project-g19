@@ -20,7 +20,23 @@ export const addQuestion = async (data) => {
 
 export const getQuestionList = async (id) => {
   try {
-    const response = await axios.get(API_URL);
+    const token = sessionStorage.getItem("token");
+
+    if (!token) {
+      throw new Error("No token found, please log in.");
+    }
+    
+    const response = await axios.get(API_URL, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token for verification
+      },
+    });
+    
+    // if (response.status === 200) {
+    //   return response.data;
+    // } else {
+    //   throw new Error("Fetch users failed, please try again.");
+    // }
     return response.data;
   } catch (error) {
     console.error("Error fetching questions:", error);
