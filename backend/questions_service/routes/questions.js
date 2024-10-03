@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { verifyAccessToken, verifyIsAdmin, verifyIsOwnerOrAdmin } = require('../controllers/middlewares/access-control');
+const { verifyAccessToken, verifyIsAdmin } = require('../controllers/middlewares/access-control');
 
 const { getQuestionById, checkDuplicateTitle } = require('../controllers/middlewares/questionMiddleware');
 const { listQuestions, getQuestion, createQuestion, updateQuestion, deleteQuestion } = require('../controllers/questionController');
@@ -9,16 +9,16 @@ const { listQuestions, getQuestion, createQuestion, updateQuestion, deleteQuesti
 router.get('/', verifyAccessToken, verifyIsAdmin, listQuestions);
 
 // Get a question by id
-router.get('/:id', getQuestionById, getQuestion);
+router.get('/:id', verifyAccessToken, getQuestionById, getQuestion);
 
 // Create a question
-router.post('/', checkDuplicateTitle, createQuestion);
+router.post('/', verifyAccessToken, verifyIsAdmin, checkDuplicateTitle, createQuestion);
 
 // Update a question
-router.patch('/:id', getQuestionById, updateQuestion);
+router.patch('/:id', verifyAccessToken, verifyIsAdmin, getQuestionById, updateQuestion);
 
 // Delete a question
-router.delete('/:id', getQuestionById, deleteQuestion);
+router.delete('/:id', verifyAccessToken, verifyIsAdmin, getQuestionById, deleteQuestion);
 
 
 module.exports = router;

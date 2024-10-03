@@ -30,22 +30,7 @@ const verifyIsAdmin = (req, res, next) => {
   }
 }
 
-const verifyIsOwnerOrAdmin = (req, res, next) => {
-  if (req.user.isAdmin) {
-    return next();
-  }
-
-  const userIdFromReqParams = req.params.id;
-  const userIdFromToken = req.user.id;
-  if (userIdFromReqParams === userIdFromToken) {
-    return next();
-  }
-
-  return res.status(403).json({ message: "Not authorized to access this resource" });
-}
-
 module.exports = {
   verifyAccessToken,
   verifyIsAdmin,
-  verifyIsOwnerOrAdmin
 };
