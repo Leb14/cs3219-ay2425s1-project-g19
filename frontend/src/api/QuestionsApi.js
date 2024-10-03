@@ -18,7 +18,11 @@ export const addQuestion = async (data) => {
       },
     });
 
-    return response.data; // Return response if needed
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Create questions failed, please try again.");
+    }
   } catch (error) {
     if (error.response) {
       console.error("Error adding question:", error.response.data);
@@ -43,12 +47,11 @@ export const getQuestionList = async (id) => {
       },
     });
 
-    // if (response.status === 200) {
-    //   return response.data;
-    // } else {
-    //   throw new Error("Fetch users failed, please try again.");
-    // }
-    return response.data;
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Fetch questions failed, please try again.");
+    }
   } catch (error) {
     console.error("Error fetching questions:", error);
     throw error;
@@ -68,7 +71,12 @@ export const getQuestion = async (id) => {
         Authorization: `Bearer ${token}`, // Include the token for verification
       },
     });
-    return response.data;
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Fetch question failed, please try again.");
+    }
   } catch (error) {
     console.error("Error fetching question:", error);
     throw error;
@@ -89,7 +97,12 @@ export const deleteQuestion = async (id) => {
         Authorization: `Bearer ${token}`, // Include the token for verification
       },
     });
-    return response.data;
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Delete questions failed, please try again.");
+    }
   } catch (error) {
     console.error("Error deleting question:", error);
     throw error;
@@ -109,7 +122,12 @@ export const updateQuestion = async (id, updatedData) => {
         Authorization: `Bearer ${token}`, // Include the token for verification
       },
     });
-    return response.data;
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Update questions failed, please try again.");
+    }
   } catch (error) {
     console.error("Error updating questions:", error);
     throw error;
