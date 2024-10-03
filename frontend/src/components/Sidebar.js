@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import dashboardIcon from "../assets/dashboard.png";
 import questionIcon from "../assets/question.png";
 import userIcon from "../assets/user.png";
 import peerPrep from "../assets/peerprep.png";
-import "../css/sidebar.css"; // Import CSS file for additional styling
+import "../css/sidebar.css"; 
 
 const Sidebar = ({onLogout}) => {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState("/");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setActiveLink(location.pathname);
@@ -19,6 +20,7 @@ const Sidebar = ({onLogout}) => {
     sessionStorage.setItem("isAdmin", false);
     sessionStorage.removeItem("token");
     onLogout();
+    navigate("/");
   }
 
   return (

@@ -1,5 +1,5 @@
 import "./css/main.css";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import DashBoard from "./pages/admin/DashBoard";
 import Questions from "./pages/admin/Questions";
@@ -26,8 +26,11 @@ function App() {
   };
 
   const handleLogout = () => {
-    setIsAuthenticated(JSON.parse(sessionStorage.getItem("isAuthenticated")));
-    setIsAdmin(JSON.parse(sessionStorage.getItem("isAdmin")));
+    // Clear session storage and state
+    sessionStorage.removeItem("isAuthenticated");
+    sessionStorage.removeItem("isAdmin");
+    setIsAuthenticated(false);
+    setIsAdmin(false);
   };
 
   useEffect(() => {
@@ -66,7 +69,7 @@ function App() {
                     path="/" 
                     element={
                       <Transition>
-                        <Login />
+                        <Login onLogin={handleLogin}/>
                       </Transition>
                     } 
                   />
