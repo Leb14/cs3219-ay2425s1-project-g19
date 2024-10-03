@@ -15,6 +15,7 @@ const Users = () => {
       setLoading(true);
       try {
         const users = await getAllUser();
+        console.log(users.data);
         setUsers(users.data);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -31,7 +32,7 @@ const Users = () => {
 //     try {
 //       await deleteQuestion(id);
 //       setQuestions((prevQuestions) =>
-//         prevQuestions.filter((question) => question._id !== id)
+//         prevQuestions.filter((question) => question.id !== id)
 //       );
 //       console.log("Delete successful");
 //     } catch (error) {
@@ -86,14 +87,14 @@ const Users = () => {
               <tr><td colSpan="5">No users found</td></tr>
             ) : (
                 filteredUsers.map((user) => (
-                <tr className="align-middle" key={user._id}>
+                <tr className="align-middle" key={user.id}>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
                   <td>{user.isAdmin ? "Yes" : "No"}</td>
                   <td>{moment(user.createdAt).tz("Asia/Singapore").format("YYYY-MM-DD hh:mm A")}</td> 
                   <td className="text-end">
                     <div className="d-flex flex-row justify-content-end gap-2">
-                      <Link to={`/edit/${user._id}`} className="btn btn-warning btn-small">
+                      <Link to={`/edituser/${user.id}`} className="btn btn-warning btn-small">
                         <i className="bi bi-pencil"></i>
                       </Link>
                       <button

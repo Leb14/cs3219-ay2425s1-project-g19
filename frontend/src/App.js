@@ -7,6 +7,7 @@ import AddQuestion from "./pages/admin/AddQuestion";
 import EditQuestion from "./pages/admin/EditQuestion";
 import ViewQuestion from "./pages/admin/ViewQuestion";
 import Users from "./pages/admin/Users";
+import EditUser from "./pages/admin/EditUser";
 import Login from "./pages/user/Login";
 import Register from "./pages/user/Register";
 import Transition from "./transition/Transition";
@@ -64,6 +65,7 @@ function App() {
                   <Route path="/edit/:id" element={<EditQuestion />} />
                   <Route path="/view/:id" element={<ViewQuestion />} />
                   <Route path="/users" element={<Users />} />
+                  <Route path="/edituser/:id" element={<EditUser />} />
                 </>
               ) : (
                 <>
