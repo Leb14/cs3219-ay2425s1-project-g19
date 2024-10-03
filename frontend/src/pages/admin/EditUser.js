@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getUser, updateUserPrivilege } from "../../api/UserApi";
-import "../../css/addQuestion.css";
 
 const EditUser = () => {
   const [username, setUsername] = useState("");
@@ -72,7 +71,7 @@ const EditUser = () => {
         onSubmit={handleSubmit}
       >
         <div>
-          <div className="row form-group mb-4">
+          <div className="col form-group mb-4">
             <div className="col">
               <label className="white-label" htmlFor="title">
                 Username
@@ -89,7 +88,7 @@ const EditUser = () => {
               />
             </div>
 
-            <div className="col">
+            <div className="col mt-4">
               <label className="white-label" htmlFor="image">
                 Email
               </label>
@@ -112,7 +111,7 @@ const EditUser = () => {
                 IsAdmin
               </label>
               <select
-                className="form-control"
+                className="form-select"
                 id="isadmin"
                 name="isAdmin" // Updated name attribute to match state
                 value={isAdmin ? "Yes" : "No"} // Set dropdown based on boolean value
