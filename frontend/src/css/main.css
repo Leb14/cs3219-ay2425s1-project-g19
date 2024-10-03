@@ -6,12 +6,6 @@
   background-color: white; /* Default user background */
 }
   
-/* Example CSS to hide the scrollbar */
-html {
-  overflow: -moz-hidden; /* Firefox */
-  overflow: hidden; /* Other browsers */
-}
-
   .feather {
     width: 16px;
     height: 16px;
