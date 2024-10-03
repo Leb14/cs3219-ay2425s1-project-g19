@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment-timezone";
 // import Searchbar from "../components/Searchbar";
-import { getAllUser } from "../../api/UserApi"; 
+import { getAllUser, deleteUser } from "../../api/UserApi"; 
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -28,17 +28,15 @@ const Users = () => {
     fetchUsers();
   }, []);
 
-//   const handleDelete = async (id) => {
-//     try {
-//       await deleteQuestion(id);
-//       setQuestions((prevQuestions) =>
-//         prevQuestions.filter((question) => question.id !== id)
-//       );
-//       console.log("Delete successful");
-//     } catch (error) {
-//       console.error("Error deleting:", error);
-//     }
-//   };
+  const handleDelete = async (id) => {
+    try {
+      await deleteUser(id);
+    const users = await getAllUser();
+    setUsers(users.data);
+    } catch (error) {
+      console.error("Error deleting:", error);
+    }
+  };
 
   const handleSearchChange = (e) => {
     setSearchInput(e.target.value);
@@ -100,6 +98,7 @@ const Users = () => {
                       <button
                         onClick={() => {
                           if (window.confirm("Are you sure you want to delete this question?")) {
+                            handleDelete(user.id);
                           }
                         }}
                         className="btn btn-danger btn-small"

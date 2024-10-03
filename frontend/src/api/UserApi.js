@@ -44,10 +44,10 @@ export const getAllUser = async () => {
     }
   } catch (error) {
     if (error.response) {
-      console.error("Error fetching users:", error.response.data);
+      console.error("Error fetching all users:", error.response.data);
       throw new Error(error.response.data.message);
     }
-    console.error("Error fetching users:", error);
+    console.error("Error fetching all users:", error);
     throw error;
   }
 };
@@ -70,14 +70,14 @@ export const getUser = async (id) => {
     if (response.status === 200) {
       return response.data;
     } else {
-      throw new Error("Fetch users failed, please try again.");
+      throw new Error("Fetch user failed, please try again.");
     }
   } catch (error) {
     if (error.response) {
-      console.error("Error fetching users:", error.response.data);
+      console.error("Error fetching user:", error.response.data);
       throw new Error(error.response.data.message);
     }
-    console.error("Error fetching users:", error);
+    console.error("Error fetching user:", error);
     throw error;
   }
 };
@@ -100,14 +100,44 @@ export const updateUserPrivilege = async (id, data) => {
     if (response.status === 200) {
       return response.data;
     } else {
-      throw new Error("Fetch users failed, please try again.");
+      throw new Error("Update user's privilege failed, please try again.");
     }
   } catch (error) {
     if (error.response) {
-      console.error("Error fetching users:", error.response.data);
+      console.error("Error updating user's privilege:", error.response.data);
       throw new Error(error.response.data.message);
     }
-    console.error("Error fetching users:", error);
+    console.error("Error updating user's privilege:", error);
+    throw error;
+  }
+};
+
+// Create a function to update users privilege
+export const deleteUser = async (id) => {
+  try {
+    const token = sessionStorage.getItem("token");
+
+    if (!token) {
+      throw new Error("No token found, please log in.");
+    }
+
+    const response = await axios.delete(`${API_URL}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token for verification
+      },
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Delete user failed, please try again.");
+    }
+  } catch (error) {
+    if (error.response) {
+      console.error("Error deleting user:", error.response.data);
+      throw new Error(error.response.data.message);
+    }
+    console.error("Error deleting user:", error);
     throw error;
   }
 };
