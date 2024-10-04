@@ -21,8 +21,10 @@ const Login = ({ onLogin }) => {
           </p>
         </div>
         <div className="auth-illustration">
-          <img src={authSketch} alt="Illustration" className="auth-sketch" />
-          <img src={platform} alt="Illustration" className="auth-rec" />
+          <img src={authSketch} alt="Illustration" className="auth-sketch" />   
+          <div className="auth-rec" >
+            <img src={platform} alt="Illustration" /> 
+          </div>
         </div>
       </div>
 

@@ -6,6 +6,7 @@
     height: 100vh; /* Full page height */
     padding: 0 0px;
     box-sizing: border-box;
+    overflow: hidden;
   }
 
   .auth-text {
@@ -33,7 +34,6 @@
   .auth-sketch {
     width: 100%;
     max-width: 450px;
-    margin-top: 50px;
   }
 
   .auth-rec {
@@ -52,12 +52,13 @@
     .auth-container {
       flex-direction: column;
       padding: 20px;
+      overflow: scroll;
     }
-  
+    
     .auth-left, .auth-right {
       width: 100%;
       text-align: center;
-      padding: 20px;
+      padding: 10px;
     }
   
     .auth-left h1 {
@@ -65,8 +66,27 @@
     }
   
     .auth-text {
-        display: none;
+      padding-top: 0px;
+      padding-left: 0px;
     }
+    
+    .auth-left {
+      width: 90%;
+      text-align: left;
+    }
+    
+    .auth-left h1 {
+      font-size: 48px;
+    }
+    
+    .auth-left p {
+      font-size: 18px;
+      width: 100%;
+      line-height: 1.5;
+      text-align: center;
+      color: #555;
+    }
+    
     .auth-illustration {
       display: none; /* Optionally hide illustration on small screens */
     }
