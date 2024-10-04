@@ -78,7 +78,7 @@ const RegisterBox = () => {
       <p className="text-muted">Fill in the necessary information</p>
 
       <form id="registerForm" onSubmit={handleRegister} className="w-100">
-        <div className="mb-3">
+        <div className="mb-2">
           <label htmlFor="username" className="form-label">
             Username:
           </label>
@@ -93,7 +93,7 @@ const RegisterBox = () => {
           />
         </div>
 
-        <div className="mb-3">
+        <div className="mb-2">
           <label htmlFor="email" className="form-label">
             Email:
           </label>
@@ -108,7 +108,7 @@ const RegisterBox = () => {
           />
         </div>
 
-        <div className="mb-3 position-relative">
+        <div className="mb-2 position-relative">
           <label htmlFor="password" className="form-label">
             Password:
           </label>
