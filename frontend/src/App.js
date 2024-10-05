@@ -1,13 +1,16 @@
 import "./css/main.css";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import DashBoard from "./pages/admin/DashBoard";
 import Questions from "./pages/admin/Questions";
 import AddQuestion from "./pages/admin/AddQuestion";
 import EditQuestion from "./pages/admin/EditQuestion";
 import ViewQuestion from "./pages/admin/ViewQuestion";
+import Users from "./pages/admin/Users";
+import EditUser from "./pages/admin/EditUser";
 import Login from "./pages/user/Login";
 import Register from "./pages/user/Register";
+import Transition from "./transition/Transition";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -25,8 +28,11 @@ function App() {
   };
 
   const handleLogout = () => {
-    setIsAuthenticated(JSON.parse(sessionStorage.getItem("isAuthenticated")));
-    setIsAdmin(JSON.parse(sessionStorage.getItem("isAdmin")));
+    // Clear session storage and state
+    sessionStorage.removeItem("isAuthenticated");
+    sessionStorage.removeItem("isAdmin");
+    setIsAuthenticated(false);
+    setIsAdmin(false);
   };
 
   useEffect(() => {
@@ -58,11 +64,27 @@ function App() {
                   <Route path="/add" element={<AddQuestion />} />
                   <Route path="/edit/:id" element={<EditQuestion />} />
                   <Route path="/view/:id" element={<ViewQuestion />} />
+                  <Route path="/users" element={<Users />} />
+                  <Route path="/edituser/:id" element={<EditUser />} />
                 </>
               ) : (
                 <>
-                  <Route path="/" element={<Login onLogin={handleLogin} />} />
-                  <Route path="/register" element={<Register />} />
+                  <Route 
+                    path="/" 
+                    element={
+                      <Transition>
+                        <Login onLogin={handleLogin}/>
+                      </Transition>
+                    } 
+                  />
+                  <Route 
+                    path="/register" 
+                    element={
+                      <Transition>
+                        <Register />
+                      </Transition>
+                    }  
+                  />
                 </>
               )}
             </Routes>
