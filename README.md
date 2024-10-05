@@ -35,6 +35,9 @@ Fisrt download or `git clone` our code.
     `chmod a+x run_all_containerized_services.sh` 
 
     before running the script.
+4. To stop all services, run:
+
+    `docker compose down`
 
 #### Using `npm`:
 1. Add a file named `.env` to user_service directory (i.e., `./backend/user-service`), with the following content:
@@ -67,8 +70,5 @@ Fisrt download or `git clone` our code.
     `chmod a+x run_all_services.sh` 
 
     before running the script.
+4. To stop all services, press `Ctrl + C`.
 
-### Note: 
-- You can choose to develop individual microservices within separate folders within this repository **OR** use individual repositories (all public) for each microservice. 
-- In the latter scenario, you should enable sub-modules on this GitHub classroom repository to manage the development/deployment **AND** add your mentor to the individual repositories as a collaborator. 
-- The teaching team should be given access to the repositories as we may require viewing the history of the repository in case of any disputes or disagreements. 
