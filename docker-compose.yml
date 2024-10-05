@@ -1,0 +1,46 @@
+services:
+  user:
+    build:
+      context: ./backend/user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    environment:
+      - DB_CLOUD_URI=${DB_CLOUD_URI}
+      - DB_LOCAL_URI=${DB_LOCAL_URI}
+      - PORT=8000
+      - ENV=PROD
+      - JWT_SECRET=${JWT_SECRET}
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  questions:
+    build:
+      context: ./backend/questions_service
+      dockerfile: Dockerfile
+    container_name: questions-service
+    environment:
+      - PORT=8001
+      - MONGO_URL=${MONGO_URL}
+    ports:
+      - "8001:8001"
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - user
+      - questions
+
+networks:
+  app-network:
+    driver: bridge
