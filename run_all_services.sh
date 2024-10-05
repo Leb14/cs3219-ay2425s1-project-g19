@@ -11,6 +11,7 @@ services=(
 start_service() {
   cd "$1" || exit
   echo "Starting service in $1"
+  npm install
   npm start &
   cd - || exit
 }
