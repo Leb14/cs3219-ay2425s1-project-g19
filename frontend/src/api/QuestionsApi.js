@@ -129,6 +129,10 @@ export const updateQuestion = async (id, updatedData) => {
       throw new Error("Update questions failed, please try again.");
     }
   } catch (error) {
+    if (error.response) {
+      console.error("Error adding question:", error.response.data);
+      throw new Error(error.response.data.message);
+    }
     console.error("Error updating questions:", error);
     throw error;
   }

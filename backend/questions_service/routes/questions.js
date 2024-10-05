@@ -15,7 +15,7 @@ router.get('/:id', verifyAccessToken, getQuestionById, getQuestion);
 router.post('/', verifyAccessToken, verifyIsAdmin, checkDuplicateTitle, createQuestion);
 
 // Update a question
-router.patch('/:id', verifyAccessToken, verifyIsAdmin, getQuestionById, updateQuestion);
+router.patch('/:id', verifyAccessToken, verifyIsAdmin, checkDuplicateTitle, getQuestionById, updateQuestion);
 
 // Delete a question
 router.delete('/:id', verifyAccessToken, verifyIsAdmin, getQuestionById, deleteQuestion);
