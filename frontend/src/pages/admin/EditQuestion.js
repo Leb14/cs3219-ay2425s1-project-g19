@@ -83,6 +83,7 @@ const EditQuestion = () => {
     } catch (error) {
       setLoading(false);
       console.error(error);
+      alert(`Failed to add question: ${error.message}`);
     }
   };
 

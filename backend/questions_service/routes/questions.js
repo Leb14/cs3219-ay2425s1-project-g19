@@ -13,7 +13,7 @@ router.get('/:id', getQuestionById, getQuestion);
 router.post('/', checkDuplicateTitle, createQuestion);
 
 // Update a question
-router.patch('/:id', getQuestionById, updateQuestion);
+router.patch('/:id', checkDuplicateTitle, getQuestionById, updateQuestion);
 
 // Delete a question
 router.delete('/:id', getQuestionById, deleteQuestion);

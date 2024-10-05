@@ -54,6 +54,10 @@ export const updateQuestion = async (id, updatedData) => {
     const response = await axios.patch(`${API_URL}/${id}`, updatedData);
     return response.data;
   } catch (error) {
+    if (error.response) {
+      console.error("Error adding question:", error.response.data);
+      throw new Error(error.response.data.message);
+    }
     console.error("Error updating questions:", error);
     throw error;
   }
