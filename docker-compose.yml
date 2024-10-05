@@ -23,10 +23,13 @@ services:
     environment:
       - PORT=8001
       - MONGO_URL=${MONGO_URL}
+      - USER_SERVICE_URL=http://user:8000
     ports:
       - "8001:8001"
     networks:
       - app-network
+    depends_on:
+      - user
 
   frontend:
     build:

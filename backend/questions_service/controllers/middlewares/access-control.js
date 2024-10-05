@@ -1,5 +1,5 @@
 const axios = require('axios');
-const API_URL = "http://localhost:8000/auth";
+const API_URL = process.env.USER_SERVICE_URL ? `${process.env.USER_SERVICE_URL}/auth` : "http://localhost:8000/auth";
 
 const verifyAccessToken = async (req, res, next) => {
   const authHeader = req.headers['authorization'];
