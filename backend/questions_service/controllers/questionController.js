@@ -33,7 +33,7 @@ const createQuestion = async (req, res) => {
 
   try {
     const newQuestion = await question.save();
-    res.status(201).json(newQuestion);
+    res.json(newQuestion);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

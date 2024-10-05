@@ -156,7 +156,7 @@ const AddQuestion = () => {
               </label>
               <select
                 type="text"
-                className="form-control"
+                className="form-select"
                 id="complexity"
                 name="complexity"
                 value={complexity}
