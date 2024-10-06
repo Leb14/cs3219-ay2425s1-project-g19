@@ -1,0 +1,22 @@
+.fade-enter {
+    opacity: 0; /* Fully transparent when entering */
+    transform: scale(0.9); /* Start slightly smaller for zoom-in effect */
+    transition: opacity 300ms ease-in-out, transform 300ms ease-in-out; /* Smooth transition */
+  }
+  
+  .fade-enter-active {
+    opacity: 1; /* Fully visible when active */
+    transform: scale(1); /* Scale to original size */
+    transition: opacity 300ms ease-in-out, transform 300ms ease-in-out; 
+  }
+  
+  .fade-exit {
+    opacity: 1; /* Fully visible when exiting */
+    transform: scale(1); /* Keep at original size */
+  }
+  
+  .fade-exit-active {
+    opacity: 0; /* Fully transparent when exiting */
+    transform: scale(0.9); /* Scale down to create zoom-out effect */
+  }
+  

@@ -1,0 +1,31 @@
+.searchbar-container {
+  display: flex;
+  background-color: #2c2557;
+  width: 100%;
+  margin: 0 auto; /* Center the search bar horizontally */
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Optional shadow for better aesthetics */
+}
+
+
+/* Search input field styling */
+.searchbar-input {
+  background-color: #2c2557; /* Dark background to match the container */
+  color: #ffffff; /* White text color */
+  border: none; /* Remove borders */
+  width: 100%; /* Full width inside the container */
+  font-size: 18px; /* Larger font size */
+  padding: 10px; /* Padding inside the input */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.searchbar-input::placeholder {
+  color: #ffffff; /* Light gray placeholder color */
+}
+
+/* Search bar focus effect */
+.searchbar-input:focus {
+  background-color: #2a2150; /* Slightly darker background on focus */
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtle glow effect */
+  outline: none; /* Remove the default outline */
+}
