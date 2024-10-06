@@ -107,7 +107,7 @@ const EditUser = () => {
 
           <div className="row form-group mb-4">
             <div className="col">
-              <label className="white-label" htmlFor="complexity">
+              <label className="white-label" htmlFor="isadmin">
                 IsAdmin
               </label>
               <select
@@ -119,7 +119,7 @@ const EditUser = () => {
                 required
               >
                 <option value="" disabled>
-                  Select Complexity
+                  IsAdmin
                 </option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
