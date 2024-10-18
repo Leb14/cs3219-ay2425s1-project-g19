@@ -21,14 +21,14 @@ function LeftSidebar() {
       link: "/",
     },
     {
-      icon: <IconHistory strokeColor={getStrokeColor("/History")} />,
+      icon: <IconHistory strokeColor={getStrokeColor("/history")} />,
       title: "History",
-      link: "/History",
+      link: "/history",
     },
     {
-      icon: <IconSettings strokeColor={getStrokeColor("/Settings")} />,
+      icon: <IconSettings strokeColor={getStrokeColor("/setting")} />,
       title: "Settings",
-      link: "/Settings",
+      link: "/setting",
     },
   ];
 

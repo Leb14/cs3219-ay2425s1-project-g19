@@ -16,6 +16,8 @@ import Transition from "./transition/Transition";
 import { useState, useEffect } from "react";
 import HomePage from "./pages/student/HomePage";
 import RightSidebar from "./components/student/RightSidebar";
+import SettingPage from "./pages/student/SettingPage";
+import HistoryPage from "./pages/student/HistoryPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -73,6 +75,8 @@ function App() {
               <div className="main-layout flex-1 bg-[#EDEDED] border-2 border-white rounded-[1.5rem] overflow-auto">
                 <Routes>
                   <Route path="/" element={<HomePage />} />
+                  <Route path="/settings" element={<SettingPage />} />
+                  <Route path="/history" element={<HistoryPage />} />
                 </Routes>
               </div>
               <RightSidebar />
