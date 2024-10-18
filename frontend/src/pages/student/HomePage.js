@@ -1,7 +1,7 @@
 import React from "react";
 
 function HomePage() {
-  return <h1 className="text-3xl font-bold underline">Hello world!!!!</h1>;
+  return <div className="bg-red-500 hover:bg-blue-500 w-40 h-40">Hover Me</div>;
 }
 
 export default HomePage;
