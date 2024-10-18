@@ -70,10 +70,12 @@ function App() {
           <div className="flex-1 flex flex-col">
             <Header />
             <main className="pr-[20rem] pb-[1.5rem] flex h-full">
+              <div className="main-layout flex-1 bg-[#EDEDED] border-2 border-white rounded-[1.5rem] overflow-auto">
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                </Routes>
+              </div>
               <RightSidebar />
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-              </Routes>
             </main>
           </div>
         </div>

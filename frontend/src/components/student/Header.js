@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { moon, user } from "../../assets/icons/IconHeader";
 
 const Header = () => {
@@ -8,9 +7,9 @@ const Header = () => {
       <div>
         <h1 className="text-lg font-medium">
           <span role="img" aria-label="wave">
-            Hi💩
+            Hi 💩
           </span>
-          Welcome to PeerPrep
+          &nbsp;Welcome to PeerPrep
         </h1>
       </div>
       <div className="h-[50px] flex items-center gap-[10.4rem]">
