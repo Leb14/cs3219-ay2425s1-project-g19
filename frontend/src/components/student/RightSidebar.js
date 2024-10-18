@@ -1,6 +1,5 @@
 import React from "react";
 import peerPrep from "../../assets/peerprep.png";
-import Chart from "./Chart";
 
 function RightSidebar() {
   return (
@@ -44,9 +43,7 @@ function RightSidebar() {
         <h3 className="mt-8 font-medium ">Activity</h3>
       </div>
       {/* Chart section */}
-      <div className="mt-4 mx-6">
-        <Chart />
-      </div>
+      <div className="mt-4 mx-6"></div>
     </div>
   );
 }
