@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { moon, user } from "../../assets/icons/IconHeader";
-import { useState, useEffect, useContext } from 'react';
 import { getUserByEmail } from '../../api/UserApi';
 import { UserContext } from '../../App';
 
@@ -9,14 +8,21 @@ const Header = () => {
   const { userEmail } = useContext(UserContext);
 
   useEffect(() => {
+    // Check if userEmail is available from context or localStorage
+    const storedEmail = userEmail || localStorage.getItem('userEmail');
+    
     async function fetchUser() {
-      if (userEmail) {
-        // Fetch user details from the backend
-        // eslint-disable-next-line no-unused-vars
-        const userData = await getUserByEmail(userEmail);
-        setCurrentUserInfo(userData.data);
+      if (storedEmail) {
+        try {
+          // Fetch user details from the backend using the email
+          const userData = await getUserByEmail(storedEmail);
+          setCurrentUserInfo(userData.data);
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+        }
       }
     }
+
     fetchUser();
   }, [userEmail]);
 
@@ -25,7 +31,7 @@ const Header = () => {
       <div>
         <h1 className="text-lg font-medium">
           <span role="img" aria-label="wave">
-            Hi { currentUserInfo.username }!
+            Hi { currentUserInfo.username || 'Guest' }!
           </span>
           &nbsp;Welcome to PeerPrep
         </h1>
