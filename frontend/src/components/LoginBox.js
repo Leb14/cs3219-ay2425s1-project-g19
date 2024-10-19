@@ -25,7 +25,7 @@ const LoginBox = ({ onLogin }) => {
 
     setLoading(true);
     try {
-      console.log(data);
+      // console.log(data);
       const response = await login(data);
       setLoading(false);
 
