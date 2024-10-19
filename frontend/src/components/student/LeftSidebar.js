@@ -40,7 +40,7 @@ function LeftSidebar({ onLogout }) {
     sessionStorage.removeItem("token");
     onLogout();
     navigate("/");
-  }
+  };
 
   return (
     <div className="left-sidebar basis-[5rem] flex flex-col h-[100vh] bg-[#ffffff]">
@@ -69,7 +69,7 @@ function LeftSidebar({ onLogout }) {
             }
           }}
           type="submit"
-          className="btn mb-8"
+          className="btn mb-[1.5rem]"
         >
           Log Out
         </button>

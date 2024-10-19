@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import categories from "../../config/categoryConfig";
 
 const MatchForm = ({ onSubmit }) => {
   const [category, setCategory] = useState([]);
-  const [difficulty, setDifficulty] = useState('');
+  const [difficulty, setDifficulty] = useState("");
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    document.getElementById('matchForm').reportValidity();
+    document.getElementById("matchForm").reportValidity();
     onSubmit({ category, difficulty });
   };
 
@@ -25,8 +25,8 @@ const MatchForm = ({ onSubmit }) => {
   };
 
   return (
-    <form id='matchForm' onSubmit={handleSubmit}>
-      <div className="row form-group mb-4">
+    <form id="matchForm" onSubmit={handleSubmit}>
+      <div className="form-group mb-4">
         <div className="col">
           <label className="gray-label" htmlFor="category">
             Category
@@ -81,7 +81,7 @@ const MatchForm = ({ onSubmit }) => {
             name="difficulty"
             value={difficulty}
             placeholder="difficulty"
-            onChange={e => setDifficulty(e.target.value)}
+            onChange={(e) => setDifficulty(e.target.value)}
             required
           >
             <option value="" disabled selected>
@@ -94,9 +94,13 @@ const MatchForm = ({ onSubmit }) => {
         </div>
       </div>
       <br />
-      <button type="submit" className='btn'>Find Match</button>
+      <div className="flex items-center justify-center">
+        <button type="submit" className="btn justify-center align-middle">
+          Find Match
+        </button>
+      </div>
     </form>
   );
-}
+};
 
 export default MatchForm;
