@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import MatchForm from '../../components/student/MatchForm';
 import { getMatch } from '../../api/MatchingApi';
 import { getUserByEmail } from '../../api/UserApi';
@@ -8,33 +8,42 @@ const timeout = 30;  // Timeout value in seconds
 
 const MatchingPage = () => {
   const [status, setStatus] = useState('');
-  const [ws, setWs] = useState(null);  // WebSocket connection
-  const [countdown, setCountdown] = useState(timeout);  // Timer state (30 seconds)
+  const [ws, setWs] = useState(null);
+  const [countdown, setCountdown] = useState(timeout);
   const [isMatching, setIsMatching] = useState(false);
-  const [currentUserInfo, setCurrentUserInfo] = useState({});
+  const [currentUserInfo, setCurrentUserInfo] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { userEmail } = useContext(UserContext);
 
   useEffect(() => {
     async function fetchUser() {
       if (userEmail) {
-        // Fetch user details from the backend
-        // eslint-disable-next-line no-unused-vars
-        const userData = await getUserByEmail(userEmail);
-        setCurrentUserInfo(userData.data);
+        setIsLoading(true);
+        try {
+          const userData = await getUserByEmail(userEmail);
+          setCurrentUserInfo(userData.data);
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+          setStatus("Error loading user data. Please try again later.");
+        } finally {
+          setIsLoading(false);
+        }
       }
     }
 
     fetchUser();
   }, [userEmail]);
 
-  // Handle match request submission
-  const handleMatchRequest = async (submission) => {
-    setStatus('Finding a match...');
-    setCountdown(timeout);  // Reset the countdown to 30 seconds
+  const handleMatchRequest = useCallback(async (submission) => {
+    if (!currentUserInfo || !currentUserInfo.id) {
+      setStatus('User information not loaded. Please try again.');
+      return;
+    }
 
+    setStatus('Finding a match...');
+    setCountdown(timeout);
     setIsMatching(true);
 
-    // Send the match request to the backend via POST
     try {
       const data = {
         userId: currentUserInfo.id,
@@ -44,10 +53,8 @@ const MatchingPage = () => {
 
       const res = await getMatch(data);
 
-      // Open WebSocket connection for real-time updates
       const websocket = new WebSocket('ws://localhost:8002');
       websocket.onopen = () => {
-        // Send userId to the WebSocket server to track the connection
         websocket.send(JSON.stringify({ userId: res.userId }));
       };
 
@@ -67,15 +74,15 @@ const MatchingPage = () => {
       };
 
       websocket.onclose = () => {
-        setWs(null);  // Clean up WebSocket connection
+        setWs(null);
       };
 
-      setWs(websocket);  // Store WebSocket instance
+      setWs(websocket);
     } catch (err) {
       setStatus('Error sending request. Please try again.');
       setIsMatching(false);
     }
-  };
+  }, [currentUserInfo]);
 
   useEffect(() => {
     let intervalId;
@@ -100,19 +107,21 @@ const MatchingPage = () => {
     };
   }, [isMatching]);
 
-  // Clean up the WebSocket and countdown interval when the component unmounts
   useEffect(() => {
     return () => {
       if (ws) ws.close();
     };
   }, [ws]);
 
+  if (isLoading) {
+    return <div>Loading user information...</div>;
+  }
+
   return (
     <div className="Matching">
       <h1>Wanna practice coding with your peer?</h1>
       <MatchForm onSubmit={handleMatchRequest} />
       <p>{status}</p>
-      {/* {status === 'Finding a match...' && <p>Time remaining: {countdown} seconds</p>} */}
       {isMatching && <p>Time remaining: {countdown} seconds</p>}
     </div>
   );
