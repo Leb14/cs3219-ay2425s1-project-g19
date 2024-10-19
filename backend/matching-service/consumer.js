@@ -1,6 +1,13 @@
 const amqp = require('amqplib/callback_api');
 const { sendWsMessage } = require('./ws');
 
+function arrayEquals(a, b) {
+  return Array.isArray(a) &&
+      Array.isArray(b) &&
+      a.length === b.length &&
+      a.every((val, index) => val === b[index]);
+}
+
 // In-memory store to track unmatched users
 let unmatchedUsers = [];
 
@@ -20,7 +27,7 @@ const setupConsumer = () => {
         console.log('Received user request:', userRequest);
 
         // Check if there's a matching user in unmatchedUsers
-        const match = unmatchedUsers.find(u => u.category === userRequest.category);
+        const match = unmatchedUsers.find(u => arrayEquals(u.category, userRequest.category));
 
         if (match) {
           console.log(`Matched user ${userRequest.userId} with user ${match.userId}`);
