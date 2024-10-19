@@ -1,13 +1,31 @@
 import React from "react";
 import { moon, user } from "../../assets/icons/IconHeader";
+import { useState, useEffect, useContext } from 'react';
+import { getUserByEmail } from '../../api/UserApi';
+import { UserContext } from '../../App';
 
 const Header = () => {
+  const [currentUserInfo, setCurrentUserInfo] = useState({});
+  const { userEmail } = useContext(UserContext);
+
+  useEffect(() => {
+    async function fetchUser() {
+      if (userEmail) {
+        // Fetch user details from the backend
+        // eslint-disable-next-line no-unused-vars
+        const userData = await getUserByEmail(userEmail);
+        setCurrentUserInfo(userData.data);
+      }
+    }
+    fetchUser();
+  }, [userEmail]);
+
   return (
     <header className="px-6 my-4 w-full flex items-center justify-between bg-[#ffffff]">
       <div>
         <h1 className="text-lg font-medium">
           <span role="img" aria-label="wave">
-            Hi 💩
+            Hi { currentUserInfo.username }!
           </span>
           &nbsp;Welcome to PeerPrep
         </h1>

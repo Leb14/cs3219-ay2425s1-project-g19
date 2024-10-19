@@ -52,7 +52,7 @@ export const getAllUser = async () => {
   }
 };
 
-// Create a function to get all users
+// Create a function to get a user by id
 export const getUser = async (id) => {
   try {
     const token = sessionStorage.getItem("token");
@@ -61,7 +61,37 @@ export const getUser = async (id) => {
       throw new Error("No token found, please log in.");
     }
 
-    const response = await axios.get(`${API_URL}/${id}`, {
+    const response = await axios.get(`${API_URL}/id/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token for verification
+      },
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Fetch user failed, please try again.");
+    }
+  } catch (error) {
+    if (error.response) {
+      console.error("Error fetching user:", error.response.data);
+      throw new Error(error.response.data.message);
+    }
+    console.error("Error fetching user:", error);
+    throw error;
+  }
+};
+
+// Create a function to get a user by email
+export const getUserByEmail = async (email) => {
+  try {
+    const token = sessionStorage.getItem("token");
+
+    if (!token) {
+      throw new Error("No token found, please log in.");
+    }
+
+    const response = await axios.get(`${API_URL}/email/${email}`, {
       headers: {
         Authorization: `Bearer ${token}`, // Include the token for verification
       },
@@ -91,7 +121,7 @@ export const updateUserPrivilege = async (id, data) => {
       throw new Error("No token found, please log in.");
     }
 
-    const response = await axios.patch(`${API_URL}/${id}/privilege`, data, {
+    const response = await axios.patch(`${API_URL}/id/${id}/privilege`, data, {
       headers: {
         Authorization: `Bearer ${token}`, // Include the token for verification
       },
@@ -121,7 +151,7 @@ export const deleteUser = async (id) => {
       throw new Error("No token found, please log in.");
     }
 
-    const response = await axios.delete(`${API_URL}/${id}`, {
+    const response = await axios.delete(`${API_URL}/id/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`, // Include the token for verification
       },

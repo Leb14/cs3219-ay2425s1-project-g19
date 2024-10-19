@@ -1,13 +1,12 @@
 import React from "react";
 import LoginBox from "../../components/LoginBox";
-import useDisableScroll from "../../hooks/useDisableScroll";
 import authSketch from "../../assets/auth-page-sketch.png";
 import platform from "../../assets/platform.png";
 import "../../css/authPage.css";
 
 const Login = ({ onLogin }) => {
-  const handleLogin = () => {
-    onLogin();
+  const handleLogin = (email) => {
+    onLogin(email);
   };
 
   return (

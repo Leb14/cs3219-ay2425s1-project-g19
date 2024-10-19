@@ -66,6 +66,22 @@ const getAllUsers = async (req, res) => {
   }
 }
 
+const getUserByEmail = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const user = await _findUserByEmail(email);
+
+    if (!user) {
+      return res.status(404).json({ message: `User with email ${email} not found` });
+    } else {
+      return res.status(200).json({ message: `Found user`, data: formatUserResponse(user) });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Unknown error when getting user by email!" });
+  }
+}
+
 const updateUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -169,6 +185,7 @@ module.exports = {
   createUser,
   getUser,
   getAllUsers,
+  getUserByEmail,
   updateUser,
   updateUserPrivilege,
   deleteUser,
