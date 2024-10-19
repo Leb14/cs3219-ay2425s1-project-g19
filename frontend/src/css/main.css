@@ -1,172 +1,182 @@
 .admin-body {
-  background-color: #0F0A3C; /* Admin background */
+  background-color: #0f0a3c; /* Admin background */
+}
+
+.student-body {
+  background-color: #f9f9f9; /* Student background */
+  height: 100vh;
+  position: relative;
 }
 
 .default-body {
   background-color: white; /* Default user background */
 }
-  
-  .feather {
-    width: 16px;
-    height: 16px;
-  }
-  
-  /*
+
+.feather {
+  width: 16px;
+  height: 16px;
+}
+
+/*
    * Sidebar
    */
-  
-   .sidebar {
-    flex-shrink: 0;
-    width: 18%; /* Adjust this based on your sidebar width */
-    height: 100vh;
-    background-color: #f8f9fa;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-  
-  .header {
-    position: fixed;
-    top: 0;
-    left: 240px; /* Same width as sidebar */
-    right: 0;
-    z-index: 1000;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    border-radius: 30px;
-    overflow: hidden;
-  }
-  
-  /* @media (max-width: 767.98px) {
+
+.sidebar {
+  flex-shrink: 0;
+  width: 18%; /* Adjust this based on your sidebar width */
+  height: 100vh;
+  background-color: #f8f9fa;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 240px; /* Same width as sidebar */
+  right: 0;
+  z-index: 1000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+/* @media (max-width: 767.98px) {
     .sidebar {
       top: 5rem;
     }
   } */
-  
-  .sidebar-sticky {
-    height: calc(100vh - 48px);
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  }
-  
-  .sidebar .nav-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    color: #333;
-  }
-  
-  .sidebar .nav-link .feather {
-    margin-right: 4px;
-    color: #727272;
-  }
-  
-  .sidebar .nav-link.active {
-    justify-content: center;
-    color: #2470dc;
-  }
-  
-  .sidebar .nav-link:hover .feather,
-  .sidebar .nav-link.active .feather {
-    color: inherit;
-  }
-  
-  .sidebar .profile-name {
-    display:flex;
-    justify-content: center;
-  }
 
-  .sidebar-heading {
-    font-size: .75rem;
-  }
-  
-  /*
+.sidebar-sticky {
+  height: calc(100vh - 48px);
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  color: #333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #727272;
+}
+
+.sidebar .nav-link.active {
+  justify-content: center;
+  color: #2470dc;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar .profile-name {
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar-heading {
+  font-size: 0.75rem;
+}
+
+/*
    * Navbar
    */
-  
-  .navbar-brand {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    background-color: rgba(0, 0, 0, .25);
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
-  }
-  
-  .navbar .navbar-toggler {
-    top: .25rem;
-    right: 1rem;
-  }
-  
-  .navbar .form-control {
-    padding: .75rem 1rem;
-  }
-  
-  .navbar .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: white;
-    opacity: 1; /* Firefox */
-  }
-  
-  .form-control-dark {
-    color: #fff;
-    background-color: rgba(255, 255, 255, .1);
-    border-color: rgba(255, 255, 255, .1);
-  }
-  
-  .form-control-dark:focus {
-    border-color: transparent;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
-  }
 
-  .content {
-    padding-top: 20px; /* Adjust based on the header height */
-  }
+.navbar-brand {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
+}
 
-  .h2-styled {
-    color: white;;
-    padding: 15px 0px;
-  }
+.navbar .navbar-toggler {
+  top: 0.25rem;
+  right: 1rem;
+}
 
-  .white-label {
-    color: white;
-  }
+.navbar .form-control {
+  padding: 0.75rem 1rem;
+}
 
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-    padding: 5px 10px;
-    border-radius: 20px;
-    color: white; /* Change text color for better contrast */
-    margin-right: 5px; /* Space between tags */
-  }
-  
-  .bg-grey {
-    background-color: grey; /* Grey background */
-  }
-  
-  .remove-tag {
-    background: white; /* Remove button background */
-    border-radius: 40px;
-    border: none; /* Remove button border */
-    color: rebeccapurple; /* Change button color to match the tag */
-    cursor: pointer; /* Change cursor to pointer */
-    margin-left: 5px; /* Space between text and button */
-  }
+.navbar .form-control::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
 
-  .btn-white-text {
-    color: white; 
-    background-color: transparent;
-    font-size: 18px;
-    border: 1px solid white;
-  }
-  
-  .btn-white-text:hover {
-    background-color: white;
-    color: black;
-  }
+.form-control-dark {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+}
 
-  
+.form-control-dark:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+.content {
+  padding-top: 20px; /* Adjust based on the header height */
+}
+
+.h2-styled {
+  color: white;
+  padding: 15px 0px;
+}
+
+.white-label {
+  color: white;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: white; /* Change text color for better contrast */
+  margin-right: 5px; /* Space between tags */
+}
+
+.bg-grey {
+  background-color: grey; /* Grey background */
+}
+
+.remove-tag {
+  background: white; /* Remove button background */
+  border-radius: 40px;
+  border: none; /* Remove button border */
+  color: rebeccapurple; /* Change button color to match the tag */
+  cursor: pointer; /* Change cursor to pointer */
+  margin-left: 5px; /* Space between text and button */
+}
+
+.btn-white-text {
+  color: white;
+  background-color: transparent;
+  font-size: 18px;
+  border: 1px solid white;
+}
+
+.btn-white-text:hover {
+  background-color: white;
+  color: black;
+}
+
+.indicator {
+  color: white;
+  opacity: 0;
+}
