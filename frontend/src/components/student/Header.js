@@ -3,7 +3,7 @@ import { moon, user } from "../../assets/icons/IconHeader";
 
 const Header = () => {
   return (
-    <header className="px-6 my-4 w-full flex items-center justify-between bg-[#f9f9f9]">
+    <header className="px-6 my-4 w-full flex items-center justify-between bg-[#ffffff]">
       <div>
         <h1 className="text-lg font-medium">
           <span role="img" aria-label="wave">

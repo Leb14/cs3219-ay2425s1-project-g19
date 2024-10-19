@@ -69,7 +69,7 @@ function App() {
       {isAuthenticated && !isAdmin ? (
         <div className="h-full flex overflow-hidden">
           <LeftSidebar />
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col bg-[#ffffff]">
             <Header />
             <main className="pr-[20rem] pb-[1.5rem] flex h-full">
               <div className="main-layout flex-1 bg-[#EDEDED] border-2 border-white rounded-[1.5rem] overflow-auto">

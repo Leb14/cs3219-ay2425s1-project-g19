@@ -33,7 +33,7 @@ function LeftSidebar() {
   ];
 
   return (
-    <div className="left-sidebar basis-[5rem] flex flex-col h-[100vh] bg-[#f9f9f9]">
+    <div className="left-sidebar basis-[5rem] flex flex-col h-[100vh] bg-[#ffffff]">
       <div className="flex items-center justify-center h-[5rem]">
         <img src={peerPrep} width={40} height={40} alt="logo" />
       </div>

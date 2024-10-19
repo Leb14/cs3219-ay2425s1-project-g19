@@ -1,5 +1,6 @@
 import React from "react";
 import peerPrep from "../../assets/peerprep.png";
+import PieChart from "./PieChart";
 
 function RightSidebar() {
   return (
@@ -24,26 +25,39 @@ function RightSidebar() {
         <div className="mt-6 flex flex-col gap-8">
           <div className="grid grid-cols-2 gap-4">
             <div className="text-gray-400">
-              <p className="whitespace-nowrap">Total Questions:</p>
+              <p className="whitespace-nowrap">To Solve:</p>
               <p className="pl-4 relative flex gap-2">
                 <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-50%] bg-purple-500 rounded-[5px]"></span>
-                <span className="font-medium text-4xl text-[#333]">10</span>
+                <span className="font-medium text-4xl text-[#333]">3</span>
               </p>
             </div>
             <div className="text-gray-400">
-              <p className="whitespace-nowrap">Completed Questions:</p>
+              <p className="whitespace-nowrap">Solved:</p>
               <p className="pl-4 relative flex gap-2">
                 <span className="absolute h-[70%] w-[0.2rem] left-[1px] top-1/2 translate-y-[-50%] bg-purple-500 rounded-[5px]"></span>
-                <span className="font-medium text-4xl text-[#333]">0</span>
+                <span className="font-medium text-4xl text-[#333]">7</span>
               </p>
             </div>
           </div>
         </div>
 
-        <h3 className="mt-8 font-medium ">Activity</h3>
+        <h3 className="mt-8 font-medium ">Statistics</h3>
       </div>
       {/* Chart section */}
-      <div className="mt-4 mx-6"></div>
+      <div style={{ position: "relative", height: "245px", width: "100%" }}>
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            height: "245px",
+            width: "245px",
+          }}
+        >
+          <PieChart />
+        </div>
+      </div>
     </div>
   );
 }
