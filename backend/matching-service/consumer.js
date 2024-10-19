@@ -1,5 +1,9 @@
 const amqp = require('amqplib/callback_api');
 const { sendWsMessage } = require('./ws');
+const dotenv = require('dotenv');
+dotenv.config();
+
+const CLOUDAMQP_URL = process.env.CLOUDAMQP_URL;
 
 function arrayEquals(a, b) {
   return Array.isArray(a) &&
@@ -13,7 +17,7 @@ let unmatchedUsers = [];
 
 // Function to set up RabbitMQ consumer
 const setupConsumer = () => {
-  amqp.connect('amqp://localhost', (err, conn) => {
+  amqp.connect(CLOUDAMQP_URL, (err, conn) => {
     if (err) throw err;
 
     conn.createChannel((err, ch) => {
