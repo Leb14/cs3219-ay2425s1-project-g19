@@ -16,48 +16,85 @@ const MatchingPage = () => {
   const { userEmail } = useContext(UserContext);
 
   useEffect(() => {
-    async function fetchUser() {
-      if (userEmail) {
-        setIsLoading(true);
+    // If userEmail exists, save it to localStorage for persistence across refreshes
+    if (userEmail) {
+      localStorage.setItem('userEmail', userEmail);
+    }
+  }, [userEmail]);  
+
+  useEffect(() => {
+    // Check if userEmail is available from UserContext or localStorage
+    const storedEmail = userEmail || localStorage.getItem('userEmail');
+    
+    if (storedEmail) {
+      setIsLoading(true);
+      setStatus('');  // Clear any previous status
+  
+      async function fetchUser() {
         try {
-          const userData = await getUserByEmail(userEmail);
-          setCurrentUserInfo(userData.data);
+          const userData = await getUserByEmail(storedEmail);
+          if (userData && userData.data) {
+            setCurrentUserInfo(userData.data);
+          } else {
+            setStatus("User data not available. Please try again later.");
+          }
         } catch (error) {
           console.error("Failed to fetch user data:", error);
           setStatus("Error loading user data. Please try again later.");
         } finally {
-          setIsLoading(false);
+          setIsLoading(false);  // Ensure loading stops even in case of an error
         }
       }
+  
+      fetchUser();
+    } else {
+      setStatus("No user email provided. Please log in.");
+      setIsLoading(false);
     }
-
-    fetchUser();
-  }, [userEmail]);
+  }, [userEmail]);  
 
   const handleMatchRequest = useCallback(async (submission) => {
     if (!currentUserInfo || !currentUserInfo.id) {
       setStatus('User information not loaded. Please try again.');
       return;
     }
-
+  
     setStatus('Finding a match...');
     setCountdown(timeout);
     setIsMatching(true);
-
+  
+    // Helper function to close WebSocket connection and wait until it's fully closed
+    const closeWebSocket = () => {
+      return new Promise((resolve) => {
+        if (ws) {
+          ws.onclose = () => {
+            console.log('Previous WebSocket closed.');
+            resolve();  // Resolve the promise once WebSocket is closed
+          };
+          ws.close();  // Initiate WebSocket close
+        } else {
+          resolve();  // If no WebSocket, resolve immediately
+        }
+      });
+    };
+  
     try {
       const data = {
         userId: currentUserInfo.id,
         category: submission.category,
         difficulty: submission.difficulty
-      }
-
+      };
+  
       const res = await getMatch(data);
-
+  
+      // Close any existing WebSocket connection before creating a new one
+      await closeWebSocket();  // Wait for WebSocket to close
+  
       const websocket = new WebSocket('ws://localhost:8002');
       websocket.onopen = () => {
         websocket.send(JSON.stringify({ userId: res.userId }));
       };
-
+  
       websocket.onmessage = (message) => {
         const result = JSON.parse(message.data);
         if (result.status === 'matched') {
@@ -67,22 +104,22 @@ const MatchingPage = () => {
         }
         setIsMatching(false);
       };
-
+  
       websocket.onerror = (error) => {
         setStatus('Error occurred. Please try again.');
         setIsMatching(false);
       };
-
+  
       websocket.onclose = () => {
         setWs(null);
       };
-
+  
       setWs(websocket);
     } catch (err) {
       setStatus('Error sending request. Please try again.');
       setIsMatching(false);
     }
-  }, [currentUserInfo]);
+  }, [currentUserInfo, ws]);  
 
   useEffect(() => {
     let intervalId;
