@@ -20,7 +20,7 @@ const setupConsumer = () => {
         console.log('Received user request:', userRequest);
 
         // Check if there's a matching user in unmatchedUsers
-        const match = unmatchedUsers.find(u => u.topic === userRequest.topic);
+        const match = unmatchedUsers.find(u => u.category === userRequest.category);
 
         if (match) {
           console.log(`Matched user ${userRequest.userId} with user ${match.userId}`);
