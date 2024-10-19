@@ -1,12 +1,12 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import IconGrid from "../../assets/icons/IconGrid";
 import IconHistory from "../../assets/icons/IconHistory";
 import IconSettings from "../../assets/icons/IconSettings";
 import peerPrep from "../../assets/peerprep.png";
 import { Link } from "react-router-dom";
 
-function LeftSidebar() {
+function LeftSidebar({ onLogout }) {
   const location = useLocation();
   const pathName = location.pathname;
 
@@ -32,6 +32,16 @@ function LeftSidebar() {
     },
   ];
 
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.setItem("isAuthenticated", false);
+    sessionStorage.setItem("isAdmin", false);
+    sessionStorage.removeItem("token");
+    onLogout();
+    navigate("/");
+  }
+
   return (
     <div className="left-sidebar basis-[5rem] flex flex-col h-[100vh] bg-[#ffffff]">
       <div className="flex items-center justify-center h-[5rem]">
@@ -51,6 +61,18 @@ function LeftSidebar() {
             </li>
           ))}
         </ul>
+
+        <button
+          onClick={() => {
+            if (window.confirm("Are you sure you want to log out?")) {
+              handleLogout();
+            }
+          }}
+          type="submit"
+          className="btn mb-8"
+        >
+          Log Out
+        </button>
       </div>
     </div>
   );

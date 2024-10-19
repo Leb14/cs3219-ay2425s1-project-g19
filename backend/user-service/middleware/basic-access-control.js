@@ -1,5 +1,8 @@
 const jwt = require("jsonwebtoken");
-const {findUserById:_findUserById} = require("../model/repository.js");
+const {
+  findUserById:_findUserById,
+  findUserByEmail:_findUserByEmail
+} = require("../model/repository.js");
 
 const verifyAccessToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -47,8 +50,23 @@ const verifyIsOwnerOrAdmin = (req, res, next) => {
   return res.status(403).json({ message: "Not authorized to access this resource" });
 }
 
+const verifyIsOwnerOrAdminByEmail = (req, res, next) => {
+  if (req.user.isAdmin) {
+    return next();
+  }
+
+  const userEmailFromReqParams = req.params.email;
+  const userEmailFromToken = req.user.email;
+  if (userEmailFromReqParams === userEmailFromToken) {
+    return next();
+  }
+
+  return res.status(403).json({ message: "Not authorized to access this resource" });
+}
+
 module.exports = {
   verifyAccessToken,
   verifyIsAdmin,
-  verifyIsOwnerOrAdmin
+  verifyIsOwnerOrAdmin,
+  verifyIsOwnerOrAdminByEmail
 };

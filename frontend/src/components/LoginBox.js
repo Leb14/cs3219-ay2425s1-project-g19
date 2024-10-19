@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom'; 
 import { login } from "../api/AuthApi";
 import "../css/authBox.css";
 import eyeIcon from "../assets/view.png"; 
 import eyeOffIcon from "../assets/hide.png"; 
+import { UserContext } from "../App";
 
 const LoginBox = ({ onLogin }) => {  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // eslint-disable-next-line
   const [loading, setLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false); 
+  const { setUserEmail } = useContext(UserContext);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -22,7 +25,7 @@ const LoginBox = ({ onLogin }) => {
 
     setLoading(true);
     try {
-      console.log(data);
+      // console.log(data);
       const response = await login(data);
       setLoading(false);
 
@@ -33,7 +36,8 @@ const LoginBox = ({ onLogin }) => {
       sessionStorage.setItem("isAdmin", isAdmin);
       sessionStorage.setItem("token", token);
 
-      onLogin();      
+      setUserEmail(email);
+      onLogin(email);      
     } catch (error) {
       setLoading(false);
       console.error(error);
