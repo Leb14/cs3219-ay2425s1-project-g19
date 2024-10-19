@@ -1,9 +1,13 @@
 const amqp = require('amqplib/callback_api');
+const dotenv = require('dotenv');
+dotenv.config();
+
+const CLOUDAMQP_URL = process.env.CLOUDAMQP_URL;
 
 let channel;
 
 // Establish connection to RabbitMQ and create a channel
-amqp.connect('amqp://localhost', (err, conn) => {
+amqp.connect(CLOUDAMQP_URL, (err, conn) => {
   if (err) throw err;
 
   conn.createChannel((err, ch) => {
