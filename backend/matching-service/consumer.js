@@ -36,16 +36,20 @@ const setupConsumer = () => {
           sendWsMessage(match.userId, { status: 'matched', matchedUserId: userRequest.userId });
           sendWsMessage(userRequest.userId, { status: 'matched', matchedUserId: match.userId });
 
+          // Clear the timeouts for both users
+          clearTimeout(match.timeoutId);
+
           // Remove the matched user from unmatchedUsers
           unmatchedUsers = unmatchedUsers.filter(u => u.userId !== match.userId);
         } else {
-          unmatchedUsers.push(userRequest);
-
           // Set a timeout to remove unmatched users after 30 seconds
-          setTimeout(() => {
+          const timeoutId = setTimeout(() => {
             unmatchedUsers = unmatchedUsers.filter(u => u.userId !== userRequest.userId);
             sendWsMessage(userRequest.userId, { status: 'timeout' });
           }, 30000);  // 30 seconds timeout
+
+          // Add the new user with their timeout ID
+          unmatchedUsers.push({ ...userRequest, timeoutId });
         }
 
         ch.ack(msg);  // Acknowledge message processing
