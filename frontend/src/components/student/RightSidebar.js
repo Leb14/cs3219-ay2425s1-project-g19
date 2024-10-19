@@ -44,15 +44,22 @@ function RightSidebar() {
         <h3 className="mt-8 font-medium ">Statistics</h3>
       </div>
       {/* Chart section */}
-      <div style={{ position: "relative", height: "245px", width: "100%" }}>
+      <div
+        style={{
+          position: "relative",
+          height: "calc(100% - 50%)",
+          width: "100%",
+        }}
+      >
         <div
           style={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            height: "245px",
-            width: "245px",
+            height: "100%",
+            width: "100%",
+            paddingBottom: "1.5rem",
           }}
         >
           <PieChart />
