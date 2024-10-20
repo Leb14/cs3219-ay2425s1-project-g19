@@ -12,6 +12,12 @@ function arrayEquals(a, b) {
       a.every((val, index) => val === b[index]);
 }
 
+function checkSubset(parentArray, subsetArray) {
+  return subsetArray.every((el) => {
+      return parentArray.includes(el)
+  });
+}
+
 // In-memory store to track unmatched users
 let unmatchedUsers = [];
 
@@ -31,7 +37,7 @@ const setupConsumer = () => {
         console.log('Received user request:', userRequest);
 
         // Check if there's a matching user in unmatchedUsers
-        const match = unmatchedUsers.find(u => arrayEquals(u.category, userRequest.category));
+        const match = unmatchedUsers.find(u => checkSubset(u.category, userRequest.category) || checkSubset(userRequest.category, u.category)) || unmatchedUsers.find(u => u.difficulty === userRequest.difficulty);
 
         if (match) {
           console.log(`Matched user ${userRequest.userId} with user ${match.userId}`);
