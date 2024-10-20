@@ -21,6 +21,9 @@ Fisrt download or `git clone` our code.
 
     # questions-service
     MONGO_URL=
+
+    # matching-service
+    CLOUDAMQP_URL=
     ```
     Fill in it with your own environment variable values.
 3. 
