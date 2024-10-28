@@ -4,6 +4,8 @@
 services=(
   "./backend/user-service"
   "./backend/questions_service"
+  "./backend/matching-service"
+  "./backend/collaboration-service"
   "./frontend"
 )
 
