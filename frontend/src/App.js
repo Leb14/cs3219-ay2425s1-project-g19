@@ -18,6 +18,7 @@ import MatchingPage from "./pages/student/MatchingPage";
 import RightSidebar from "./components/student/RightSidebar";
 import SettingPage from "./pages/student/SettingPage";
 import HistoryPage from "./pages/student/HistoryPage";
+import CollaborationRoom from "./pages/student/CollaborationRoom";
 
 export const UserContext = createContext();
 
@@ -83,6 +84,8 @@ function App() {
                     <Route path="/" element={<MatchingPage />} />
                     <Route path="/settings" element={<SettingPage />} />
                     <Route path="/history" element={<HistoryPage />} />
+                    <Route path="/room/:roomId" element={<CollaborationRoom />} />
+                    <Route path="*" element={<h1>404 Not Found</h1>} />
                   </Routes>
                 </div>
                 <RightSidebar />
