@@ -3,6 +3,7 @@ import MatchForm from "../../components/student/MatchForm";
 import { getMatch } from "../../api/MatchingApi";
 import { getUserByEmail } from "../../api/UserApi";
 import { UserContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 const timeout = 30; // Timeout value in seconds
 
@@ -14,6 +15,7 @@ const MatchingPage = () => {
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { userEmail } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // If userEmail exists, save it to localStorage for persistence across refreshes
@@ -98,10 +100,12 @@ const MatchingPage = () => {
 
         websocket.onmessage = (message) => {
           const result = JSON.parse(message.data);
-          if (result.status === "matched") {
+          if (result.status === "MATCH_FOUND") {
             setStatus(
               `Match found! You are paired with user ${result.matchedUserId}`
             );
+            // Navigate to collaboration room
+            navigate(`/room/${result.roomId}`);
           } else if (result.status === "timeout") {
             setStatus("No match found. Please try again.");
           }

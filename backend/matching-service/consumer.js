@@ -1,9 +1,11 @@
 const amqp = require('amqplib/callback_api');
 const { sendWsMessage } = require('./ws');
+const axios = require('axios');
 const dotenv = require('dotenv');
 dotenv.config();
 
 const CLOUDAMQP_URL = process.env.CLOUDAMQP_URL;
+const COLLAB_SERVICE_URL = "http://localhost:8003";
 
 function arrayEquals(a, b) {
   return Array.isArray(a) &&
@@ -32,7 +34,7 @@ const setupConsumer = () => {
       ch.assertQueue(queue, { durable: false });
 
       console.log('Listening for messages in RabbitMQ queue...');
-      ch.consume(queue, (msg) => {
+      ch.consume(queue, async (msg) => {
         const userRequest = JSON.parse(msg.content.toString());
         console.log('Received user request:', userRequest);
 
@@ -40,17 +42,38 @@ const setupConsumer = () => {
         const match = unmatchedUsers.find(u => checkSubset(u.category, userRequest.category) || checkSubset(userRequest.category, u.category)) || unmatchedUsers.find(u => u.difficulty === userRequest.difficulty);
 
         if (match) {
-          console.log(`Matched user ${userRequest.userId} with user ${match.userId}`);
+          try {
+            console.log(`Matched user ${userRequest.userId} with user ${match.userId}`);
 
-          // Notify both users via ws
-          sendWsMessage(match.userId, { status: 'matched', matchedUserId: userRequest.userId });
-          sendWsMessage(userRequest.userId, { status: 'matched', matchedUserId: match.userId });
+            // Create room in collaboration service
+            const response = await axios.post(`${COLLAB_SERVICE_URL}/rooms/create`, {
+              users: [userRequest.userId, match.userId],
+              difficulty: userRequest.difficulty,
+              category: userRequest.category
+            });
 
-          // Clear the timeouts for both users
-          clearTimeout(match.timeoutId);
+            const { roomId } = response.data;
 
-          // Remove the matched user from unmatchedUsers
-          unmatchedUsers = unmatchedUsers.filter(u => u.userId !== match.userId);
+            // Notify both users
+            [userRequest, match].forEach(user => {
+              sendWsMessage(user.userId, {
+                status: 'MATCH_FOUND',
+                roomId,
+                matchedUserId: user === userRequest ? match.userId : userRequest.userId,
+                difficulty: userRequest.difficulty,
+                category: userRequest.category
+              });
+            });
+
+            // Clear the timeouts for both users
+            clearTimeout(match.timeoutId);
+
+            // Remove matched user from unmatchedUsers
+            unmatchedUsers = unmatchedUsers.filter(u => u.userId !== match.userId);
+          } catch (error) {
+            console.error('Error creating room:', error);
+            // Handle error appropriately
+          }
         } else {
           // Set a timeout to remove unmatched users after 30 seconds
           const timeoutId = setTimeout(() => {
